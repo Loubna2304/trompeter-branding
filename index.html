@@ -1346,7 +1346,11 @@ body {
     });
   }
 
-  // ── Video processing ──────────────────────────────────────────────
+  // ── Video processing (robust version) ────────────────────────────
+  // Max video dimensions to prevent memory issues
+  const MAX_VIDEO_DIM = 1080;
+  const MAX_VIDEO_DURATION = 120; // seconds
+
   function processVideo(item) {
     return new Promise((resolve, reject) => {
       const settings = getSettings();
@@ -1354,93 +1358,141 @@ body {
       video.muted = true;
       video.playsInline = true;
       video.preload = 'auto';
+      video.crossOrigin = 'anonymous';
 
       const objUrl = URL.createObjectURL(item.file);
       video.src = objUrl;
 
-      video.onloadedmetadata = () => {
-        video.currentTime = 0;
+      let cleaned = false;
+      function cleanup() {
+        if (cleaned) return;
+        cleaned = true;
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        URL.revokeObjectURL(objUrl);
+      }
+
+      // Timeout safety net (3 minutes max)
+      const timeout = setTimeout(() => {
+        cleanup();
+        reject(new Error('Video-Verarbeitung hat zu lange gedauert'));
+      }, 180000);
+
+      video.onerror = () => {
+        clearTimeout(timeout);
+        cleanup();
+        reject(new Error('Video konnte nicht geladen werden'));
       };
 
-      video.onseeked = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-
+      video.onloadedmetadata = () => {
         const duration = video.duration;
-        const fps = 30;
-        const mimeType = 'video/webm;codecs=vp9';
-        const fallbackMime = 'video/webm;codecs=vp8';
-        let chosenMime = MediaRecorder.isTypeSupported(mimeType) ? mimeType :
-                         MediaRecorder.isTypeSupported(fallbackMime) ? fallbackMime : 'video/webm';
 
-        const stream = canvas.captureStream(fps);
-
-        // Try to capture audio
-        let hasAudio = false;
-        try {
-          const audioCtx = new AudioContext();
-          const source = audioCtx.createMediaElementSource(video);
-          const dest = audioCtx.createMediaStreamDestination();
-          source.connect(dest);
-          source.connect(audioCtx.destination);
-          dest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
-          hasAudio = true;
-        } catch (e) {
-          // No audio — continue
+        if (duration > MAX_VIDEO_DURATION) {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Video zu lang (max. ' + MAX_VIDEO_DURATION + 's). Bitte kürzen.'));
+          return;
         }
 
+        // Scale down large videos
+        let cw = video.videoWidth;
+        let ch = video.videoHeight;
+        if (cw > MAX_VIDEO_DIM || ch > MAX_VIDEO_DIM) {
+          const ratio = Math.min(MAX_VIDEO_DIM / cw, MAX_VIDEO_DIM / ch);
+          cw = Math.round(cw * ratio);
+          ch = Math.round(ch * ratio);
+        }
+        // Ensure even dimensions (required by some codecs)
+        cw = cw % 2 === 0 ? cw : cw + 1;
+        ch = ch % 2 === 0 ? ch : ch + 1;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = cw;
+        canvas.height = ch;
+        const ctx = canvas.getContext('2d');
+
+        const fps = 24;
+        const mimeType = 'video/webm;codecs=vp8';
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Dein Browser unterstützt kein Video-Encoding. Versuche Chrome.'));
+          return;
+        }
+
+        const stream = canvas.captureStream(fps);
+        const bitrate = Math.min(2500000, cw * ch * 3);
+
         const recorder = new MediaRecorder(stream, {
-          mimeType: chosenMime,
-          videoBitsPerSecond: 5000000
+          mimeType: mimeType,
+          videoBitsPerSecond: bitrate
         });
 
         const chunks = [];
+        // Collect data in intervals to reduce memory pressure
         recorder.ondataavailable = (e) => {
-          if (e.data.size > 0) chunks.push(e.data);
+          if (e.data && e.data.size > 0) chunks.push(e.data);
         };
 
         recorder.onstop = () => {
-          const blob = new Blob(chunks, { type: 'video/webm' });
-          item.resultBlob = blob;
-          item.resultUrl = URL.createObjectURL(blob);
-          item.status = 'done';
-          item.progress = 100;
-          URL.revokeObjectURL(objUrl);
+          clearTimeout(timeout);
+          try {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            item.resultBlob = blob;
+            item.resultUrl = URL.createObjectURL(blob);
+            item.status = 'done';
+            item.progress = 100;
+          } catch (e) {
+            item.status = 'error';
+          }
+          cleanup();
           renderQueue();
           resolve();
         };
 
-        recorder.onerror = (e) => {
-          URL.revokeObjectURL(objUrl);
-          reject(e.error || new Error('MediaRecorder error'));
+        recorder.onerror = () => {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Fehler beim Video-Encoding'));
         };
 
-        recorder.start();
-        video.currentTime = 0;
-        video.muted = !hasAudio;
-        video.play();
+        // Request data every second to free memory
+        recorder.start(1000);
 
+        video.currentTime = 0;
+        video.play().catch(() => {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Video konnte nicht abgespielt werden'));
+        });
+
+        let lastTime = -1;
         function drawFrame() {
           if (video.paused || video.ended) {
-            recorder.stop();
+            try { if (recorder.state === 'recording') recorder.stop(); } catch(e) {}
             return;
           }
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-          drawBranding(ctx, canvas.width, canvas.height, settings);
+
+          // Only draw when we have a new frame
+          if (video.currentTime !== lastTime) {
+            lastTime = video.currentTime;
+            ctx.drawImage(video, 0, 0, cw, ch);
+            drawBranding(ctx, cw, ch, settings);
+          }
+
           item.progress = Math.min(99, Math.round((video.currentTime / duration) * 100));
           const el = document.querySelector('.queue-item[data-id="' + item.id + '"] .progress-bar');
           if (el) el.style.width = item.progress + '%';
+
           requestAnimationFrame(drawFrame);
         }
 
-        drawFrame();
-      };
+        video.onplay = drawFrame;
 
-      video.onerror = () => {
-        URL.revokeObjectURL(objUrl);
-        reject(new Error('Video konnte nicht geladen werden'));
+        video.onended = () => {
+          try { if (recorder.state === 'recording') recorder.stop(); } catch(e) {}
+        };
       };
     });
   }
