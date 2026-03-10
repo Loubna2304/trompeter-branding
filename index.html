@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trompeter24.de — E-Bike Branding Tool</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #1a1a1a;
+  --black-light: #2a2a2a;
+  --black-dark: #0d0d0d;
+  --orange: #ff6e00;
+  --orange-dark: #e66300;
+  --orange-glow: #ff8a2e;
+  --surface: #111111;
+  --surface-2: #1e1e1e;
+  --text: #b0b0b0;
+  --text-bright: #ffffff;
+  --border: #333333;
+  --danger: #e74c3c;
+  --success: #4caf50;
+  --radius: 12px;
+}
+
+body {
+  font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--surface);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  background: var(--black-dark);
+  border-bottom: 3px solid var(--orange);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.header-brand .logo-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--orange);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.logo-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.header-brand h1 {
+  font-size: 1.3rem;
+  color: var(--text-bright);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.header-brand h1 .accent {
+  color: var(--orange);
+  font-weight: 800;
+}
+
+.header-subtitle {
+  font-size: 0.78rem;
+  color: var(--text);
+  opacity: 0.7;
+  margin-top: 0.1rem;
+}
+
+/* Main Layout */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+/* Upload Zone */
+.upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--surface-2);
+  position: relative;
+}
+
+.upload-zone:hover,
+.upload-zone.drag-over {
+  border-color: var(--orange);
+  background: rgba(255, 110, 0, 0.04);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 110, 0, 0.1);
+}
+
+.upload-zone .upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.upload-zone h2 {
+  font-size: 1.2rem;
+  color: var(--text-bright);
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.upload-zone p {
+  color: var(--text);
+  opacity: 0.7;
+  font-size: 0.88rem;
+}
+
+.upload-zone input { display: none; }
+
+.upload-formats {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.format-badge {
+  background: var(--black);
+  color: var(--orange);
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  letter-spacing: 0.03em;
+}
+
+/* Design Selector */
+.design-selector {
+  margin-top: 1.25rem;
+}
+
+.design-selector h3 {
+  font-size: 0.95rem;
+  color: var(--text-bright);
+  margin-bottom: 0.85rem;
+  font-weight: 700;
+}
+
+.design-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.85rem;
+}
+
+.design-card {
+  background: var(--surface-2);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.6rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-align: center;
+}
+
+.design-card:hover {
+  border-color: rgba(255, 110, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.design-card.active {
+  border-color: var(--orange);
+  box-shadow: 0 0 16px rgba(255, 110, 0, 0.2);
+}
+
+.design-preview {
+  width: 100%;
+  aspect-ratio: 9/16;
+  max-height: 200px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+  background: #0a0a0a;
+}
+
+.design-preview canvas {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.design-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-bright);
+  margin-bottom: 0.15rem;
+}
+
+.design-desc {
+  font-size: 0.7rem;
+  color: var(--text);
+  opacity: 0.6;
+}
+
+@media (max-width: 500px) {
+  .design-options { grid-template-columns: 1fr; }
+  .design-preview { max-height: 140px; aspect-ratio: 16/9; }
+}
+
+/* Settings Panel */
+.settings-panel {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.settings-panel h3 {
+  font-size: 0.95rem;
+  color: var(--text-bright);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.setting-group label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+  font-weight: 600;
+}
+
+.setting-group select,
+.setting-group input[type="range"] {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--black);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.setting-group select:focus { border-color: var(--orange); }
+
+.setting-group input[type="range"] {
+  -webkit-appearance: none;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+  background: var(--border);
+  cursor: pointer;
+}
+
+.setting-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--orange);
+  cursor: pointer;
+  border: 2px solid var(--surface);
+}
+
+.range-value {
+  font-size: 0.72rem;
+  color: var(--orange);
+  float: right;
+  margin-top: -1.5rem;
+  font-weight: 700;
+}
+
+/* Queue */
+.queue-section { margin-top: 1.5rem; }
+
+.queue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.queue-header h3 {
+  font-size: 1rem;
+  color: var(--text-bright);
+  font-weight: 700;
+}
+
+.queue-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 0.5rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.97); }
+
+.btn-primary {
+  background: var(--orange);
+  color: var(--text-bright);
+}
+.btn-primary:hover {
+  background: var(--orange-glow);
+  box-shadow: 0 4px 16px rgba(255, 110, 0, 0.35);
+}
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover { border-color: var(--orange); color: var(--text-bright); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.btn-danger:hover { background: var(--danger); color: white; }
+
+.btn-sm {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+}
+
+/* Queue Items */
+.queue-list { display: grid; gap: 1rem; }
+
+.queue-item {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.queue-item:hover { border-color: var(--orange); }
+
+.queue-item-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.queue-preview {
+  position: relative;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  overflow: hidden;
+}
+
+.queue-preview canvas,
+.queue-preview video,
+.queue-preview img {
+  max-width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+}
+
+.preview-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0,0,0,0.75);
+  color: var(--text);
+  font-size: 0.68rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.queue-item-footer {
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--black);
+  border-top: 1px solid var(--border);
+  grid-column: 1 / -1;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.file-info {
+  font-size: 0.78rem;
+  color: var(--text);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-info .filename { color: var(--text-bright); font-weight: 700; }
+.file-info .filesize { color: var(--text); opacity: 0.6; margin-left: 0.5rem; }
+
+.item-actions {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+/* Progress */
+.progress-bar-container {
+  width: 100%;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  grid-column: 1 / -1;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), var(--orange-glow));
+  border-radius: 2px;
+  transition: width 0.3s ease;
+  width: 0%;
+}
+
+/* Status badges */
+.status-badge {
+  font-size: 0.68rem;
+  padding: 0.15rem 0.5rem;
+  border-radius: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.status-processing {
+  background: rgba(255, 110, 0, 0.15);
+  color: var(--orange);
+}
+.status-done {
+  background: rgba(76, 175, 80, 0.15);
+  color: var(--success);
+}
+.status-error {
+  background: rgba(231, 76, 60, 0.15);
+  color: var(--danger);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text);
+  opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .app { padding: 1rem; }
+  .upload-zone { padding: 2rem 1rem; }
+  .queue-item-inner { grid-template-columns: 1fr; }
+  .header { padding: 0.75rem 1rem; }
+  .header-brand h1 { font-size: 1.1rem; }
+  .settings-grid { grid-template-columns: 1fr; }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toast {
+  background: var(--black-light);
+  border: 1px solid var(--border);
+  color: var(--text-bright);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-family: inherit;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  animation: toast-in 0.3s ease;
+  max-width: 340px;
+}
+
+.toast.toast-success { border-color: var(--success); }
+.toast.toast-error { border-color: var(--danger); }
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Global processing */
+.global-progress {
+  display: none;
+  margin-top: 1rem;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  text-align: center;
+}
+.global-progress.active { display: block; }
+.global-progress p {
+  font-size: 0.85rem;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.global-progress .progress-bar-container { height: 6px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-brand">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L6 8h4v6H6l6 6 6-6h-4V8h4L12 2z" fill="white" opacity="0.9"/>
+        <circle cx="7" cy="19" r="2.5" stroke="white" stroke-width="1.5" fill="none"/>
+        <circle cx="17" cy="19" r="2.5" stroke="white" stroke-width="1.5" fill="none"/>
+        <line x1="9.5" y1="19" x2="14.5" y2="19" stroke="white" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div>
+      <h1>trompeter<span class="accent">24</span>.de</h1>
+      <div class="header-subtitle">E-Bike Branding Tool &mdash; Bilder &amp; Videos mit Logo versehen</div>
+    </div>
+  </div>
+</header>
+
+<main class="app">
+
+  <!-- Upload Zone -->
+  <div class="upload-zone" id="uploadZone">
+    <span class="upload-icon">&#128247;</span>
+    <h2>Dateien hier ablegen oder klicken</h2>
+    <p>Bilder und Videos hochladen, um sie mit dem E-Bike-Branding zu versehen</p>
+    <div class="upload-formats">
+      <span class="format-badge">JPG</span>
+      <span class="format-badge">PNG</span>
+      <span class="format-badge">WebP</span>
+      <span class="format-badge">MP4</span>
+      <span class="format-badge">WebM</span>
+    </div>
+    <input type="file" id="fileInput" multiple accept="image/jpeg,image/png,image/webp,video/mp4,video/webm">
+  </div>
+
+  <!-- Design Auswahl -->
+  <div class="design-selector">
+    <h3>Design w&auml;hlen</h3>
+    <div class="design-options">
+      <div class="design-card active" data-design="rahmen">
+        <div class="design-preview" id="previewRahmen"></div>
+        <div class="design-label">Rahmen</div>
+        <div class="design-desc">Eck-Klammern + Verlauf</div>
+      </div>
+      <div class="design-card" data-design="minimal">
+        <div class="design-preview" id="previewMinimal"></div>
+        <div class="design-label">Minimal</div>
+        <div class="design-desc">Dezenter Balken unten</div>
+      </div>
+      <div class="design-card" data-design="bold">
+        <div class="design-preview" id="previewBold"></div>
+        <div class="design-label">Bold</div>
+        <div class="design-desc">Volle Leiste + Streifen</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <div class="settings-panel">
+    <h3>&#9881; Einstellungen</h3>
+    <div class="settings-grid">
+      <div class="setting-group">
+        <label for="barHeight">Balkenh&ouml;he</label>
+        <input type="range" id="barHeight" min="5" max="15" value="9" step="1">
+        <span class="range-value" id="barHeightVal">9%</span>
+      </div>
+      <div class="setting-group">
+        <label for="barOpacity">Transparenz</label>
+        <input type="range" id="barOpacity" min="50" max="100" value="90" step="1">
+        <span class="range-value" id="barOpacityVal">90%</span>
+      </div>
+      <div class="setting-group">
+        <label for="outputFormat">Bildformat</label>
+        <select id="outputFormat">
+          <option value="image/png">PNG (verlustfrei)</option>
+          <option value="image/jpeg" selected>JPEG (komprimiert)</option>
+          <option value="image/webp">WebP (modern)</option>
+        </select>
+      </div>
+      <div class="setting-group">
+        <label for="jpegQuality">JPEG/WebP Qualit&auml;t</label>
+        <input type="range" id="jpegQuality" min="60" max="100" value="92" step="1">
+        <span class="range-value" id="jpegQualityVal">92%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Queue -->
+  <div class="queue-section" id="queueSection" style="display:none;">
+    <div class="queue-header">
+      <h3 id="queueTitle">Warteschlange</h3>
+      <div class="queue-actions">
+        <button class="btn btn-primary" id="btnProcessAll">&#9654; Alle verarbeiten</button>
+        <button class="btn btn-primary" id="btnDownloadAll" style="display:none;">&#11015; Alle herunterladen</button>
+        <button class="btn btn-danger btn-sm" id="btnClearAll">Alle entfernen</button>
+      </div>
+    </div>
+
+    <div class="global-progress" id="globalProgress">
+      <p id="globalProgressText">Verarbeite...</p>
+      <div class="progress-bar-container"><div class="progress-bar" id="globalProgressBar"></div></div>
+    </div>
+
+    <div class="queue-list" id="queueList"></div>
+  </div>
+
+</main>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ── State ─────────────────────────────────────────────────────────
+  let queue = [];
+  let idCounter = 0;
+
+  // ── DOM refs ──────────────────────────────────────────────────────
+  const uploadZone    = document.getElementById('uploadZone');
+  const fileInput     = document.getElementById('fileInput');
+  const queueSection  = document.getElementById('queueSection');
+  const queueList     = document.getElementById('queueList');
+  const queueTitle    = document.getElementById('queueTitle');
+  const btnProcessAll = document.getElementById('btnProcessAll');
+  const btnDownloadAll= document.getElementById('btnDownloadAll');
+  const btnClearAll   = document.getElementById('btnClearAll');
+  const globalProgress= document.getElementById('globalProgress');
+  const globalProgressBar  = document.getElementById('globalProgressBar');
+  const globalProgressText = document.getElementById('globalProgressText');
+
+  // Settings
+  const barHeightInput  = document.getElementById('barHeight');
+  const barOpacityInput = document.getElementById('barOpacity');
+  const outputFormat    = document.getElementById('outputFormat');
+  const jpegQuality     = document.getElementById('jpegQuality');
+
+  // Range display updates
+  function updateRangeDisplays() {
+    document.getElementById('barHeightVal').textContent  = barHeightInput.value + '%';
+    document.getElementById('barOpacityVal').textContent = barOpacityInput.value + '%';
+    document.getElementById('jpegQualityVal').textContent= jpegQuality.value + '%';
+  }
+  barHeightInput.addEventListener('input', updateRangeDisplays);
+  barOpacityInput.addEventListener('input', updateRangeDisplays);
+  jpegQuality.addEventListener('input', updateRangeDisplays);
+  updateRangeDisplays();
+
+  // ── Upload handling ───────────────────────────────────────────────
+  uploadZone.addEventListener('click', () => fileInput.click());
+
+  uploadZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    uploadZone.classList.add('drag-over');
+  });
+
+  uploadZone.addEventListener('dragleave', () => {
+    uploadZone.classList.remove('drag-over');
+  });
+
+  uploadZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    uploadZone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', (e) => {
+    handleFiles(e.target.files);
+    fileInput.value = '';
+  });
+
+  const ACCEPTED_IMAGE = ['image/jpeg', 'image/png', 'image/webp'];
+  const ACCEPTED_VIDEO = ['video/mp4', 'video/webm'];
+
+  function handleFiles(fileList) {
+    let added = 0;
+    for (const file of fileList) {
+      const isImage = ACCEPTED_IMAGE.includes(file.type);
+      const isVideo = ACCEPTED_VIDEO.includes(file.type);
+      if (!isImage && !isVideo) {
+        toast('Nicht unterstützt: ' + file.name, 'error');
+        continue;
+      }
+      const item = {
+        id: ++idCounter,
+        file,
+        type: isImage ? 'image' : 'video',
+        status: 'pending',
+        resultBlob: null,
+        resultUrl: null,
+        progress: 0,
+      };
+      queue.push(item);
+      added++;
+    }
+    if (added > 0) {
+      toast(added + (added === 1 ? ' Datei' : ' Dateien') + ' hinzugefügt');
+      renderQueue();
+    }
+  }
+
+  // ── Render ────────────────────────────────────────────────────────
+  function renderQueue() {
+    if (queue.length === 0) {
+      queueSection.style.display = 'none';
+      return;
+    }
+    queueSection.style.display = '';
+    queueTitle.textContent = 'Warteschlange (' + queue.length + ')';
+
+    const doneCount = queue.filter(i => i.status === 'done').length;
+    btnDownloadAll.style.display = doneCount > 0 ? '' : 'none';
+
+    queueList.innerHTML = '';
+    for (const item of queue) {
+      queueList.appendChild(createQueueItemEl(item));
+    }
+  }
+
+  function createQueueItemEl(item) {
+    const el = document.createElement('div');
+    el.className = 'queue-item';
+    el.dataset.id = item.id;
+
+    const inner = document.createElement('div');
+    inner.className = 'queue-item-inner';
+
+    // Original preview
+    const origPreview = document.createElement('div');
+    origPreview.className = 'queue-preview';
+    const origLabel = document.createElement('div');
+    origLabel.className = 'preview-label';
+    origLabel.textContent = 'Original';
+    origPreview.appendChild(origLabel);
+
+    if (item.type === 'image') {
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(item.file);
+      img.onload = () => URL.revokeObjectURL(img.src);
+      origPreview.appendChild(img);
+    } else {
+      const vid = document.createElement('video');
+      vid.src = URL.createObjectURL(item.file);
+      vid.muted = true;
+      vid.playsInline = true;
+      vid.controls = true;
+      origPreview.appendChild(vid);
+    }
+    inner.appendChild(origPreview);
+
+    // Result preview
+    const resultPreview = document.createElement('div');
+    resultPreview.className = 'queue-preview';
+    const resultLabel = document.createElement('div');
+    resultLabel.className = 'preview-label';
+    resultLabel.textContent = 'Mit Branding';
+    resultPreview.appendChild(resultLabel);
+
+    if (item.status === 'done' && item.resultUrl) {
+      if (item.type === 'image') {
+        const img = document.createElement('img');
+        img.src = item.resultUrl;
+        resultPreview.appendChild(img);
+      } else {
+        const vid = document.createElement('video');
+        vid.src = item.resultUrl;
+        vid.muted = true;
+        vid.playsInline = true;
+        vid.controls = true;
+        resultPreview.appendChild(vid);
+      }
+    } else if (item.status === 'processing') {
+      const p = document.createElement('p');
+      p.style.color = '#ff6e00';
+      p.style.fontSize = '0.85rem';
+      p.style.fontWeight = '600';
+      p.textContent = 'Wird verarbeitet...';
+      resultPreview.appendChild(p);
+    } else if (item.status === 'error') {
+      const p = document.createElement('p');
+      p.style.color = '#e74c3c';
+      p.style.fontSize = '0.85rem';
+      p.textContent = 'Fehler bei der Verarbeitung';
+      resultPreview.appendChild(p);
+    } else {
+      const p = document.createElement('p');
+      p.style.opacity = '0.4';
+      p.style.fontSize = '0.85rem';
+      p.textContent = 'Vorschau nach Verarbeitung';
+      resultPreview.appendChild(p);
+    }
+    inner.appendChild(resultPreview);
+
+    // Progress bar
+    if (item.status === 'processing') {
+      const pbContainer = document.createElement('div');
+      pbContainer.className = 'progress-bar-container';
+      const pb = document.createElement('div');
+      pb.className = 'progress-bar';
+      pb.style.width = item.progress + '%';
+      pbContainer.appendChild(pb);
+      inner.appendChild(pbContainer);
+    }
+
+    el.appendChild(inner);
+
+    // Footer
+    const footer = document.createElement('div');
+    footer.className = 'queue-item-footer';
+
+    const info = document.createElement('div');
+    info.className = 'file-info';
+    info.innerHTML = '<span class="filename">' + escHtml(item.file.name) + '</span>'
+      + '<span class="filesize">' + formatSize(item.file.size) + '</span>';
+
+    const actions = document.createElement('div');
+    actions.className = 'item-actions';
+
+    if (item.status === 'processing') {
+      const badge = document.createElement('span');
+      badge.className = 'status-badge status-processing';
+      badge.textContent = 'Verarbeite...';
+      actions.appendChild(badge);
+    } else if (item.status === 'done') {
+      const badge = document.createElement('span');
+      badge.className = 'status-badge status-done';
+      badge.textContent = 'Fertig';
+      actions.appendChild(badge);
+
+      const dlBtn = document.createElement('button');
+      dlBtn.className = 'btn btn-primary btn-sm';
+      dlBtn.innerHTML = '&#11015; Download';
+      dlBtn.addEventListener('click', () => downloadItem(item));
+      actions.appendChild(dlBtn);
+    } else if (item.status === 'error') {
+      const badge = document.createElement('span');
+      badge.className = 'status-badge status-error';
+      badge.textContent = 'Fehler';
+      actions.appendChild(badge);
+    }
+
+    if (item.status === 'pending') {
+      const procBtn = document.createElement('button');
+      procBtn.className = 'btn btn-secondary btn-sm';
+      procBtn.innerHTML = '&#9654; Verarbeiten';
+      procBtn.addEventListener('click', () => processSingleItem(item));
+      actions.appendChild(procBtn);
+    }
+
+    const removeBtn = document.createElement('button');
+    removeBtn.className = 'btn btn-danger btn-sm';
+    removeBtn.textContent = '\u2715';
+    removeBtn.addEventListener('click', () => {
+      if (item.resultUrl) URL.revokeObjectURL(item.resultUrl);
+      queue = queue.filter(q => q.id !== item.id);
+      renderQueue();
+    });
+    actions.appendChild(removeBtn);
+
+    footer.appendChild(info);
+    footer.appendChild(actions);
+    el.appendChild(footer);
+
+    return el;
+  }
+
+  // ── Settings helpers ──────────────────────────────────────────────
+  function getSettings() {
+    return {
+      barHeightPct: parseInt(barHeightInput.value, 10),
+      barOpacity: parseInt(barOpacityInput.value, 10) / 100,
+      format: outputFormat.value,
+      quality: parseInt(jpegQuality.value, 10) / 100,
+    };
+  }
+
+  // ── Selected design ──
+  let selectedDesign = 'rahmen';
+
+  // ── Design selector UI ──
+  document.querySelectorAll('.design-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.design-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      selectedDesign = card.dataset.design;
+    });
+  });
+
+  // ── Shared helpers ──
+  const FF = '"Montserrat", "Segoe UI", Roboto, sans-serif';
+
+  function drawCornerBrackets(ctx, w, h, color, thickness, len, inset) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = thickness;
+    ctx.lineCap = 'square';
+    // Top-left
+    ctx.beginPath();
+    ctx.moveTo(inset, inset + len); ctx.lineTo(inset, inset); ctx.lineTo(inset + len, inset);
+    ctx.stroke();
+    // Top-right
+    ctx.beginPath();
+    ctx.moveTo(w - inset - len, inset); ctx.lineTo(w - inset, inset); ctx.lineTo(w - inset, inset + len);
+    ctx.stroke();
+    // Bottom-left
+    ctx.beginPath();
+    ctx.moveTo(inset, h - inset - len); ctx.lineTo(inset, h - inset); ctx.lineTo(inset + len, h - inset);
+    ctx.stroke();
+    // Bottom-right
+    ctx.beginPath();
+    ctx.moveTo(w - inset - len, h - inset); ctx.lineTo(w - inset, h - inset); ctx.lineTo(w - inset, h - inset - len);
+    ctx.stroke();
+  }
+
+  function drawBottomGradient(ctx, w, h, gradientH, alpha) {
+    const gy = h - gradientH;
+    const grad = ctx.createLinearGradient(0, gy, 0, h);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(0.4, 'rgba(0,0,0,' + (alpha * 0.3) + ')');
+    grad.addColorStop(0.7, 'rgba(0,0,0,' + (alpha * 0.6) + ')');
+    grad.addColorStop(1, 'rgba(0,0,0,' + (alpha * 0.85) + ')');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, gy, w, gradientH);
+  }
+
+  function enableShadow(ctx) {
+    ctx.shadowColor = 'rgba(0,0,0,0.6)';
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 2;
+  }
+
+  function disableShadow(ctx) {
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  //  DESIGN 1: RAHMEN — Corner brackets + gradient + accent line
+  // ══════════════════════════════════════════════════════════════════
+  function drawDesignRahmen(ctx, w, h, s) {
+    const barH = Math.round(h * (s.barHeightPct / 100));
+    const scale = Math.max(w, h) / 1080;
+
+    // Corner brackets
+    const cLen = Math.round(Math.min(w, h) * 0.07);
+    const cThick = Math.max(2, Math.round(scale * 2.5));
+    const cInset = Math.round(Math.min(w, h) * 0.03);
+    drawCornerBrackets(ctx, w, h, '#ff6e00', cThick, cLen, cInset);
+
+    // Gradient
+    drawBottomGradient(ctx, w, h, barH * 1.8, s.barOpacity);
+
+    const pad = Math.round(w * 0.05);
+    const bm = Math.round(h * 0.035);
+
+    // Orange accent line
+    const alW = Math.max(3, Math.round(scale * 3.5));
+    const alH = barH * 0.7;
+    const alY = h - bm - alH;
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillRect(pad, alY, alW, alH);
+
+    const tx = pad + alW + Math.round(scale * 10);
+
+    // "TROMPETER"
+    const mfs = Math.max(16, Math.round(barH * 0.48));
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'left';
+    enableShadow(ctx);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText('TROMPETER', tx, h - bm - barH * 0.32);
+
+    // "trompeter24.de  |  E-BIKES"
+    const sfs = Math.max(11, Math.round(barH * 0.24));
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    const sy = h - bm - barH * 0.05;
+
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    const url = 'trompeter24.de';
+    ctx.fillText(url, tx, sy);
+    const uw = ctx.measureText(url).width;
+
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    const sep = '  |  ';
+    ctx.fillText(sep, tx + uw, sy);
+    const sw = ctx.measureText(sep).width;
+    disableShadow(ctx);
+
+    // E-BIKES badge
+    drawEBikeBadge(ctx, tx + uw + sw, sy, barH);
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  //  DESIGN 2: MINIMAL — Clean bottom bar, no brackets
+  // ══════════════════════════════════════════════════════════════════
+  function drawDesignMinimal(ctx, w, h, s) {
+    const barH = Math.round(h * (s.barHeightPct / 100));
+    const barY = h - barH;
+    const alpha = s.barOpacity;
+    const scale = Math.max(w, h) / 1080;
+
+    // Solid semi-transparent bar
+    const grad = ctx.createLinearGradient(0, barY, 0, h);
+    grad.addColorStop(0, 'rgba(13,13,13,' + (alpha * 0.92) + ')');
+    grad.addColorStop(1, 'rgba(10,10,10,' + alpha + ')');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, barY, w, barH);
+
+    // Thin orange top line
+    const lineH = Math.max(2, Math.round(scale * 2.5));
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillRect(0, barY, w, lineH);
+
+    const pad = Math.round(w * 0.04);
+
+    // Left: "trompeter" white + "24" orange + ".de" grey
+    const mfs = Math.max(14, Math.round(barH * 0.38));
+    ctx.font = '700 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'middle';
+    ctx.textAlign = 'left';
+    enableShadow(ctx);
+
+    const ty = barY + barH * 0.5;
+    const p1 = 'trompeter';
+    const p2 = '24';
+    const p3 = '.de';
+    const w1 = ctx.measureText(p1).width;
+    const w2 = ctx.measureText(p2).width;
+
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(p1, pad, ty);
+
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText(p2, pad + w1, ty);
+
+    ctx.font = '700 ' + mfs + 'px ' + FF;
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText(p3, pad + w1 + w2, ty);
+    disableShadow(ctx);
+
+    // Right: "E-BIKES" badge
+    const bfs = Math.max(11, Math.round(barH * 0.28));
+    ctx.font = '800 ' + bfs + 'px ' + FF;
+    const bt = 'E-BIKES';
+    const btw = ctx.measureText(bt).width;
+    const bph = Math.round(bfs * 0.55);
+    const bpv = Math.round(bfs * 0.3);
+    const bw = btw + bph * 2;
+    const bh = bfs + bpv * 2;
+    const bx = w - pad - bw;
+    const by = barY + (barH - bh) / 2;
+
+    ctx.fillStyle = '#ff6e00';
+    roundRect(ctx, bx, by, bw, bh, 4);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(bt, bx + bw / 2, by + bh / 2 + 1);
+
+    // Separator dots between URL and badge
+    const tfs = Math.max(9, Math.round(barH * 0.18));
+    ctx.font = '400 ' + tfs + 'px ' + FF;
+    ctx.fillStyle = 'rgba(255,255,255,0.3)';
+    ctx.textAlign = 'center';
+    const sepX = pad + w1 + w2 + ctx.measureText(p3).width + (bx - pad - w1 - w2 - ctx.measureText(p3).width) / 2;
+    ctx.fillText('E-Bikes  \u00B7  Pedelecs  \u00B7  Zubeh\u00F6r', sepX, ty);
+  }
+
+  // ══════════════════════════════════════════════════════════════════
+  //  DESIGN 3: BOLD — Full bar + diagonal stripe + prominent
+  // ══════════════════════════════════════════════════════════════════
+  function drawDesignBold(ctx, w, h, s) {
+    const barH = Math.round(h * (s.barHeightPct / 100) * 1.15);
+    const barY = h - barH;
+    const alpha = s.barOpacity;
+    const scale = Math.max(w, h) / 1080;
+
+    // Black bar
+    ctx.fillStyle = 'rgba(0,0,0,' + alpha + ')';
+    ctx.fillRect(0, barY, w, barH);
+
+    // Orange diagonal stripe on the left
+    const stripeW = Math.round(w * 0.025);
+    ctx.save();
+    ctx.fillStyle = '#ff6e00';
+    ctx.beginPath();
+    const skew = barH * 0.35;
+    ctx.moveTo(0, barY);
+    ctx.lineTo(stripeW + skew, barY);
+    ctx.lineTo(stripeW, h);
+    ctx.lineTo(0, h);
+    ctx.closePath();
+    ctx.fill();
+
+    // Second thin stripe
+    const s2x = stripeW + skew + Math.round(scale * 4);
+    const s2w = Math.max(2, Math.round(scale * 2));
+    ctx.beginPath();
+    ctx.moveTo(s2x, barY);
+    ctx.lineTo(s2x + s2w + skew * 0.3, barY);
+    ctx.lineTo(s2x + s2w, h);
+    ctx.lineTo(s2x - skew * 0.3, h);
+    ctx.closePath();
+    ctx.globalAlpha = 0.5;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+    ctx.restore();
+
+    const textStartX = stripeW + skew + Math.round(scale * 20);
+
+    // "TROMPETER" large
+    const mfs = Math.max(18, Math.round(barH * 0.42));
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'left';
+    enableShadow(ctx);
+
+    // "TROMPETER" with "24" appended in orange
+    ctx.fillStyle = '#ffffff';
+    const t1 = 'TROMPETER';
+    ctx.fillText(t1, textStartX, barY + barH * 0.58);
+    const t1w = ctx.measureText(t1).width;
+
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText('24', textStartX + t1w + Math.round(scale * 4), barY + barH * 0.58);
+
+    // ".de  |  E-Bikes  |  Pedelecs  |  Zubehör"
+    const sfs = Math.max(10, Math.round(barH * 0.2));
+    ctx.font = '600 ' + sfs + 'px ' + FF;
+    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('.de  |  E-Bikes  \u00B7  Pedelecs  \u00B7  Zubeh\u00F6r', textStartX, barY + barH * 0.82);
+    disableShadow(ctx);
+
+    // Right side: "E-BIKES" large outlined text
+    const bfs = Math.max(14, Math.round(barH * 0.38));
+    ctx.font = '800 ' + bfs + 'px ' + FF;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ctx.strokeStyle = '#ff6e00';
+    ctx.lineWidth = Math.max(1, Math.round(scale * 1.5));
+    ctx.strokeText('E-BIKES', w - Math.round(w * 0.04), barY + barH * 0.5);
+    ctx.fillStyle = 'rgba(255,110,0,0.15)';
+    ctx.fillText('E-BIKES', w - Math.round(w * 0.04), barY + barH * 0.5);
+  }
+
+  // ── E-BIKES badge helper (used by Rahmen design) ──
+  function drawEBikeBadge(ctx, x, baselineY, barH) {
+    const bfs = Math.max(10, Math.round(barH * 0.23));
+    ctx.font = '800 ' + bfs + 'px ' + FF;
+    const bt = 'E-BIKES';
+    const btw = ctx.measureText(bt).width;
+    const bph = Math.round(bfs * 0.5);
+    const bpv = Math.round(bfs * 0.25);
+    const bw = btw + bph * 2;
+    const bh = bfs + bpv * 2;
+    const by = baselineY - bh + bpv * 0.5;
+
+    ctx.fillStyle = '#ff6e00';
+    roundRect(ctx, x, by, bw, bh, 3);
+    ctx.fill();
+
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText(bt, x + bph, by + bh - bpv * 0.5);
+  }
+
+  // ── Main dispatch ──
+  function drawBranding(ctx, canvasW, canvasH, settings) {
+    switch (selectedDesign) {
+      case 'rahmen':  drawDesignRahmen(ctx, canvasW, canvasH, settings); break;
+      case 'minimal': drawDesignMinimal(ctx, canvasW, canvasH, settings); break;
+      case 'bold':    drawDesignBold(ctx, canvasW, canvasH, settings); break;
+    }
+  }
+
+  // ── Generate mini previews for design cards ──
+  function generatePreviews() {
+    const designs = ['rahmen', 'minimal', 'bold'];
+    const drawFns = { rahmen: drawDesignRahmen, minimal: drawDesignMinimal, bold: drawDesignBold };
+    const previewIds = { rahmen: 'previewRahmen', minimal: 'previewMinimal', bold: 'previewBold' };
+
+    const pw = 270, ph = 480;
+    const settings = { barHeightPct: 10, barOpacity: 0.9 };
+
+    designs.forEach(d => {
+      const container = document.getElementById(previewIds[d]);
+      const canvas = document.createElement('canvas');
+      canvas.width = pw;
+      canvas.height = ph;
+      const ctx = canvas.getContext('2d');
+
+      // Dark gradient background to simulate a photo
+      const bg = ctx.createLinearGradient(0, 0, pw, ph);
+      bg.addColorStop(0, '#2a2a2a');
+      bg.addColorStop(0.5, '#1a1a1a');
+      bg.addColorStop(1, '#222222');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, pw, ph);
+
+      // Fake bike silhouette circle
+      ctx.beginPath();
+      ctx.arc(pw * 0.5, ph * 0.4, pw * 0.22, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,0.04)';
+      ctx.fill();
+      ctx.beginPath();
+      ctx.arc(pw * 0.35, ph * 0.45, pw * 0.12, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(pw * 0.65, ph * 0.45, pw * 0.12, 0, Math.PI * 2);
+      ctx.stroke();
+
+      drawFns[d](ctx, pw, ph, settings);
+      container.appendChild(canvas);
+    });
+  }
+
+  // Run preview generation after fonts load
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(generatePreviews);
+  } else {
+    setTimeout(generatePreviews, 500);
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.lineTo(x + w - r, y);
+    ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+    ctx.lineTo(x + w, y + h - r);
+    ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    ctx.lineTo(x + r, y + h);
+    ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+    ctx.lineTo(x, y + r);
+    ctx.quadraticCurveTo(x, y, x + r, y);
+    ctx.closePath();
+  }
+
+  // ── Image processing ──────────────────────────────────────────────
+  function processImage(item) {
+    return new Promise((resolve, reject) => {
+      const settings = getSettings();
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(img, 0, 0);
+        drawBranding(ctx, canvas.width, canvas.height, settings);
+
+        canvas.toBlob((blob) => {
+          if (!blob) { reject(new Error('Canvas toBlob failed')); return; }
+          item.resultBlob = blob;
+          item.resultUrl = URL.createObjectURL(blob);
+          item.status = 'done';
+          item.progress = 100;
+          resolve();
+        }, settings.format, settings.quality);
+
+        URL.revokeObjectURL(img.src);
+      };
+      img.onerror = () => { reject(new Error('Bild konnte nicht geladen werden')); };
+      img.src = URL.createObjectURL(item.file);
+    });
+  }
+
+  // ── Video processing ──────────────────────────────────────────────
+  function processVideo(item) {
+    return new Promise((resolve, reject) => {
+      const settings = getSettings();
+      const video = document.createElement('video');
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'auto';
+
+      const objUrl = URL.createObjectURL(item.file);
+      video.src = objUrl;
+
+      video.onloadedmetadata = () => {
+        video.currentTime = 0;
+      };
+
+      video.onseeked = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+
+        const duration = video.duration;
+        const fps = 30;
+        const mimeType = 'video/webm;codecs=vp9';
+        const fallbackMime = 'video/webm;codecs=vp8';
+        let chosenMime = MediaRecorder.isTypeSupported(mimeType) ? mimeType :
+                         MediaRecorder.isTypeSupported(fallbackMime) ? fallbackMime : 'video/webm';
+
+        const stream = canvas.captureStream(fps);
+
+        // Try to capture audio
+        let hasAudio = false;
+        try {
+          const audioCtx = new AudioContext();
+          const source = audioCtx.createMediaElementSource(video);
+          const dest = audioCtx.createMediaStreamDestination();
+          source.connect(dest);
+          source.connect(audioCtx.destination);
+          dest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+          hasAudio = true;
+        } catch (e) {
+          // No audio — continue
+        }
+
+        const recorder = new MediaRecorder(stream, {
+          mimeType: chosenMime,
+          videoBitsPerSecond: 5000000
+        });
+
+        const chunks = [];
+        recorder.ondataavailable = (e) => {
+          if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: 'video/webm' });
+          item.resultBlob = blob;
+          item.resultUrl = URL.createObjectURL(blob);
+          item.status = 'done';
+          item.progress = 100;
+          URL.revokeObjectURL(objUrl);
+          renderQueue();
+          resolve();
+        };
+
+        recorder.onerror = (e) => {
+          URL.revokeObjectURL(objUrl);
+          reject(e.error || new Error('MediaRecorder error'));
+        };
+
+        recorder.start();
+        video.currentTime = 0;
+        video.muted = !hasAudio;
+        video.play();
+
+        function drawFrame() {
+          if (video.paused || video.ended) {
+            recorder.stop();
+            return;
+          }
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          drawBranding(ctx, canvas.width, canvas.height, settings);
+          item.progress = Math.min(99, Math.round((video.currentTime / duration) * 100));
+          const el = document.querySelector('.queue-item[data-id="' + item.id + '"] .progress-bar');
+          if (el) el.style.width = item.progress + '%';
+          requestAnimationFrame(drawFrame);
+        }
+
+        drawFrame();
+      };
+
+      video.onerror = () => {
+        URL.revokeObjectURL(objUrl);
+        reject(new Error('Video konnte nicht geladen werden'));
+      };
+    });
+  }
+
+  // ── Process single item ───────────────────────────────────────────
+  async function processSingleItem(item) {
+    if (item.status === 'processing' || item.status === 'done') return;
+    item.status = 'processing';
+    item.progress = 0;
+    renderQueue();
+
+    try {
+      if (item.type === 'image') {
+        await processImage(item);
+      } else {
+        await processVideo(item);
+      }
+      toast(item.file.name + ' fertig!', 'success');
+    } catch (err) {
+      console.error(err);
+      item.status = 'error';
+      toast('Fehler: ' + item.file.name, 'error');
+    }
+    renderQueue();
+  }
+
+  // ── Process all ───────────────────────────────────────────────────
+  btnProcessAll.addEventListener('click', async () => {
+    const pending = queue.filter(i => i.status === 'pending' || i.status === 'error');
+    if (pending.length === 0) {
+      toast('Keine Dateien zu verarbeiten', 'error');
+      return;
+    }
+
+    btnProcessAll.disabled = true;
+    globalProgress.classList.add('active');
+
+    let done = 0;
+    for (const item of pending) {
+      globalProgressText.textContent = 'Verarbeite ' + (done + 1) + ' von ' + pending.length + '...';
+      globalProgressBar.style.width = Math.round((done / pending.length) * 100) + '%';
+      await processSingleItem(item);
+      done++;
+    }
+
+    globalProgressBar.style.width = '100%';
+    globalProgressText.textContent = 'Alle Dateien verarbeitet!';
+    setTimeout(() => { globalProgress.classList.remove('active'); }, 2000);
+
+    btnProcessAll.disabled = false;
+    toast(done + ' Datei(en) erfolgreich verarbeitet!', 'success');
+    renderQueue();
+  });
+
+  // ── Download ──────────────────────────────────────────────────────
+  function downloadItem(item) {
+    if (!item.resultUrl) return;
+    const ext = item.type === 'video' ? '.webm' :
+                getSettings().format === 'image/png' ? '.png' :
+                getSettings().format === 'image/webp' ? '.webp' : '.jpg';
+    const name = item.file.name.replace(/\.[^.]+$/, '') + '_branded' + ext;
+    const a = document.createElement('a');
+    a.href = item.resultUrl;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  btnDownloadAll.addEventListener('click', () => {
+    const doneItems = queue.filter(i => i.status === 'done');
+    if (doneItems.length === 0) return;
+    doneItems.forEach((item, idx) => {
+      setTimeout(() => downloadItem(item), idx * 300);
+    });
+    toast(doneItems.length + ' Datei(en) werden heruntergeladen', 'success');
+  });
+
+  // ── Clear all ─────────────────────────────────────────────────────
+  btnClearAll.addEventListener('click', () => {
+    queue.forEach(i => { if (i.resultUrl) URL.revokeObjectURL(i.resultUrl); });
+    queue = [];
+    renderQueue();
+    toast('Warteschlange geleert');
+  });
+
+  // ── Toast ─────────────────────────────────────────────────────────
+  function toast(msg, type) {
+    const container = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = 'toast' + (type ? ' toast-' + type : '');
+    t.textContent = msg;
+    container.appendChild(t);
+    setTimeout(() => { t.remove(); }, 3500);
+  }
+
+  // ── Utilities ─────────────────────────────────────────────────────
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(1) + ' MB';
+  }
+
+  function escHtml(s) {
+    const d = document.createElement('div');
+    d.textContent = s;
+    return d.innerHTML;
+  }
+
+})();
+</script>
+</body>
+</html>
