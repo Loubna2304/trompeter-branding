@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trompeter24.de — E-Bike Branding Tool</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
-<script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/util.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1348,147 +1346,133 @@ body {
     });
   }
 
-  // ── Video processing (FFmpeg.wasm — high quality) ────────────────
-  let ffmpegInstance = null;
-  let ffmpegLoading = false;
+  // ── Video processing (high-quality MediaRecorder) ────────────────
+  function processVideo(item) {
+    return new Promise((resolve, reject) => {
+      const settings = getSettings();
+      const video = document.createElement('video');
+      video.muted = true;
+      video.playsInline = true;
+      video.preload = 'auto';
 
-  async function getFFmpeg() {
-    if (ffmpegInstance && ffmpegInstance.loaded) return ffmpegInstance;
-    if (ffmpegLoading) {
-      // Wait for existing load
-      while (ffmpegLoading) await new Promise(r => setTimeout(r, 200));
-      return ffmpegInstance;
-    }
+      const objUrl = URL.createObjectURL(item.file);
+      video.src = objUrl;
 
-    ffmpegLoading = true;
-    toast('FFmpeg wird geladen (einmalig)...', 'success');
+      let cleaned = false;
+      function cleanup() {
+        if (cleaned) return;
+        cleaned = true;
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        URL.revokeObjectURL(objUrl);
+      }
 
-    const { FFmpeg } = FFmpegWASM;
-    const ffmpeg = new FFmpeg();
+      const timeout = setTimeout(() => {
+        cleanup();
+        reject(new Error('Video-Verarbeitung hat zu lange gedauert'));
+      }, 300000);
 
-    ffmpeg.on('progress', ({ progress }) => {
-      const el = document.querySelector('.queue-item .progress-bar');
-      if (el) el.style.width = Math.round(progress * 100) + '%';
-    });
-
-    await ffmpeg.load({
-      coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
-      wasmURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.wasm',
-    });
-
-    ffmpegInstance = ffmpeg;
-    ffmpegLoading = false;
-    toast('FFmpeg geladen!', 'success');
-    return ffmpeg;
-  }
-
-  // Create transparent overlay PNG from branding
-  function createOverlayPNG(videoW, videoH, settings) {
-    const canvas = document.createElement('canvas');
-    canvas.width = videoW;
-    canvas.height = videoH;
-    const ctx = canvas.getContext('2d');
-    // Transparent background
-    ctx.clearRect(0, 0, videoW, videoH);
-    drawBranding(ctx, videoW, videoH, settings);
-
-    return new Promise(resolve => {
-      canvas.toBlob(blob => {
-        blob.arrayBuffer().then(buf => resolve(new Uint8Array(buf)));
-      }, 'image/png');
-    });
-  }
-
-  async function processVideo(item) {
-    const settings = getSettings();
-
-    // Get video dimensions
-    const videoInfo = await new Promise((resolve, reject) => {
-      const v = document.createElement('video');
-      v.muted = true;
-      v.preload = 'auto';
-      const url = URL.createObjectURL(item.file);
-      v.src = url;
-      v.onloadedmetadata = () => {
-        resolve({ w: v.videoWidth, h: v.videoHeight, duration: v.duration });
-        URL.revokeObjectURL(url);
+      video.onerror = () => {
+        clearTimeout(timeout);
+        cleanup();
+        reject(new Error('Video konnte nicht geladen werden'));
       };
-      v.onerror = () => {
-        URL.revokeObjectURL(url);
-        reject(new Error('Video konnte nicht gelesen werden'));
+
+      video.onloadedmetadata = () => {
+        // Use FULL original resolution
+        const cw = video.videoWidth;
+        const ch = video.videoHeight;
+        const duration = video.duration;
+
+        const canvas = document.createElement('canvas');
+        canvas.width = cw;
+        canvas.height = ch;
+        const ctx = canvas.getContext('2d');
+
+        // Choose best codec available
+        const codecs = [
+          'video/webm;codecs=vp9',
+          'video/webm;codecs=vp8',
+          'video/webm'
+        ];
+        let chosenMime = codecs.find(c => MediaRecorder.isTypeSupported(c));
+        if (!chosenMime) {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Kein Video-Codec verfügbar. Bitte Chrome nutzen.'));
+          return;
+        }
+
+        const stream = canvas.captureStream(30);
+
+        // High bitrate for quality: 10 Mbps for HD, scale with resolution
+        const bitrate = Math.max(8000000, Math.round(cw * ch * 8));
+
+        const recorder = new MediaRecorder(stream, {
+          mimeType: chosenMime,
+          videoBitsPerSecond: bitrate
+        });
+
+        const chunks = [];
+        recorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
+
+        recorder.onstop = () => {
+          clearTimeout(timeout);
+          try {
+            const blob = new Blob(chunks, { type: 'video/webm' });
+            item.resultBlob = blob;
+            item.resultUrl = URL.createObjectURL(blob);
+            item.status = 'done';
+            item.progress = 100;
+          } catch (e) {
+            item.status = 'error';
+          }
+          cleanup();
+          renderQueue();
+          resolve();
+        };
+
+        recorder.onerror = () => {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Fehler beim Video-Encoding'));
+        };
+
+        recorder.start(1000);
+
+        video.currentTime = 0;
+        video.play().catch(() => {
+          clearTimeout(timeout);
+          cleanup();
+          reject(new Error('Video konnte nicht abgespielt werden'));
+        });
+
+        let lastTime = -1;
+        function drawFrame() {
+          if (video.paused || video.ended) {
+            try { if (recorder.state === 'recording') recorder.stop(); } catch(e) {}
+            return;
+          }
+          if (video.currentTime !== lastTime) {
+            lastTime = video.currentTime;
+            ctx.drawImage(video, 0, 0, cw, ch);
+            drawBranding(ctx, cw, ch, settings);
+          }
+          item.progress = Math.min(99, Math.round((video.currentTime / duration) * 100));
+          const el = document.querySelector('.queue-item[data-id="' + item.id + '"] .progress-bar');
+          if (el) el.style.width = item.progress + '%';
+          requestAnimationFrame(drawFrame);
+        }
+
+        video.onplay = drawFrame;
+        video.onended = () => {
+          try { if (recorder.state === 'recording') recorder.stop(); } catch(e) {}
+        };
       };
     });
-
-    // Update progress in UI
-    function updateProgress(pct) {
-      item.progress = pct;
-      const el = document.querySelector('.queue-item[data-id="' + item.id + '"] .progress-bar');
-      if (el) el.style.width = pct + '%';
-    }
-
-    updateProgress(5);
-
-    // Load FFmpeg
-    const ffmpeg = await getFFmpeg();
-    updateProgress(10);
-
-    // Create overlay image at exact video resolution
-    const overlayData = await createOverlayPNG(videoInfo.w, videoInfo.h, settings);
-    updateProgress(15);
-
-    // Write files to FFmpeg filesystem
-    const videoData = new Uint8Array(await item.file.arrayBuffer());
-    await ffmpeg.writeFile('input' + getVideoExt(item.file), videoData);
-    await ffmpeg.writeFile('overlay.png', overlayData);
-    updateProgress(20);
-
-    const inputExt = getVideoExt(item.file);
-    const inputName = 'input' + inputExt;
-
-    // Track progress from FFmpeg
-    ffmpeg.on('progress', ({ progress }) => {
-      const pct = 20 + Math.round(progress * 75);
-      updateProgress(Math.min(95, pct));
-    });
-
-    // Run FFmpeg: overlay PNG on video with high quality
-    // -crf 18 = very high quality, -preset fast = good speed/quality balance
-    await ffmpeg.exec([
-      '-i', inputName,
-      '-i', 'overlay.png',
-      '-filter_complex', 'overlay=0:0',
-      '-c:v', 'libx264',
-      '-crf', '18',
-      '-preset', 'fast',
-      '-c:a', 'copy',
-      '-movflags', '+faststart',
-      'output.mp4'
-    ]);
-
-    updateProgress(95);
-
-    // Read output
-    const outputData = await ffmpeg.readFile('output.mp4');
-    const blob = new Blob([outputData], { type: 'video/mp4' });
-
-    item.resultBlob = blob;
-    item.resultUrl = URL.createObjectURL(blob);
-    item.status = 'done';
-    item.progress = 100;
-
-    // Cleanup FFmpeg filesystem
-    try {
-      await ffmpeg.deleteFile(inputName);
-      await ffmpeg.deleteFile('overlay.png');
-      await ffmpeg.deleteFile('output.mp4');
-    } catch(e) {}
-
-    renderQueue();
-  }
-
-  function getVideoExt(file) {
-    if (file.type === 'video/webm') return '.webm';
-    return '.mp4';
   }
 
   // ── Process single item ───────────────────────────────────────────
@@ -1544,7 +1528,7 @@ body {
   // ── Download ──────────────────────────────────────────────────────
   function downloadItem(item) {
     if (!item.resultUrl) return;
-    const ext = item.type === 'video' ? '.mp4' :
+    const ext = item.type === 'video' ? '.webm' :
                 getSettings().format === 'image/png' ? '.png' :
                 getSettings().format === 'image/webp' ? '.webp' : '.jpg';
     const name = item.file.name.replace(/\.[^.]+$/, '') + '_branded' + ext;
