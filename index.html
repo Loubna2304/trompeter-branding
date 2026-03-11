@@ -168,7 +168,7 @@ body {
 
 .design-options {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.85rem;
 }
 
@@ -219,6 +219,10 @@ body {
   font-size: 0.7rem;
   color: var(--text);
   opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .design-options { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 500px) {
@@ -457,6 +461,22 @@ body {
   flex-shrink: 0;
 }
 
+.item-design-select {
+  background: var(--surface-2);
+  color: var(--text-bright);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.item-design-select:hover { border-color: var(--orange); }
+.item-design-select:focus { outline: none; border-color: var(--orange); }
+
 /* Progress */
 .progress-bar-container {
   width: 100%;
@@ -615,15 +635,20 @@ body {
         <div class="design-label">Rahmen</div>
         <div class="design-desc">Eck-Klammern + Verlauf</div>
       </div>
-      <div class="design-card" data-design="minimal">
-        <div class="design-preview" id="previewMinimal"></div>
-        <div class="design-label">Minimal</div>
-        <div class="design-desc">Dezenter Balken unten</div>
+      <div class="design-card" data-design="ecke">
+        <div class="design-preview" id="previewEcke"></div>
+        <div class="design-label">Rad</div>
+        <div class="design-desc">Bike-Rad + Text unten rechts</div>
       </div>
-      <div class="design-card" data-design="bold">
-        <div class="design-preview" id="previewBold"></div>
-        <div class="design-label">Bold</div>
-        <div class="design-desc">Volle Leiste + Streifen</div>
+      <div class="design-card" data-design="speichen">
+        <div class="design-preview" id="previewSpeichen"></div>
+        <div class="design-label">Speichen</div>
+        <div class="design-desc">Speichen-Burst aus der Ecke</div>
+      </div>
+      <div class="design-card" data-design="kette">
+        <div class="design-preview" id="previewKette"></div>
+        <div class="design-label">Kettenkranz</div>
+        <div class="design-desc">Zahnkranz mit Text</div>
       </div>
     </div>
   </div>
@@ -762,6 +787,7 @@ body {
         resultBlob: null,
         resultUrl: null,
         progress: 0,
+        design: selectedDesign,
       };
       queue.push(item);
       added++;
@@ -886,6 +912,39 @@ body {
     info.innerHTML = '<span class="filename">' + escHtml(item.file.name) + '</span>'
       + '<span class="filesize">' + formatSize(item.file.size) + '</span>';
 
+    // Design selector per item
+    const designSelect = document.createElement('select');
+    designSelect.className = 'item-design-select';
+    designSelect.title = 'Design für diese Datei';
+    const designOptions = [
+      { value: 'rahmen', label: 'Rahmen' },
+      { value: 'ecke', label: 'Rad' },
+      { value: 'speichen', label: 'Speichen' },
+      { value: 'kette', label: 'Kettenkranz' },
+    ];
+    designOptions.forEach(opt => {
+      const o = document.createElement('option');
+      o.value = opt.value;
+      o.textContent = opt.label;
+      if (opt.value === item.design) o.selected = true;
+      designSelect.appendChild(o);
+    });
+    designSelect.addEventListener('change', () => {
+      item.design = designSelect.value;
+      // Reset to pending if already processed, so user can re-process with new design
+      if (item.status === 'done') {
+        if (item.resultUrl) URL.revokeObjectURL(item.resultUrl);
+        item.resultBlob = null;
+        item.resultUrl = null;
+        item.status = 'pending';
+        item.progress = 0;
+        renderQueue();
+      }
+    });
+    if (item.status === 'processing') {
+      designSelect.disabled = true;
+    }
+
     const actions = document.createElement('div');
     actions.className = 'item-actions';
 
@@ -931,6 +990,7 @@ body {
     actions.appendChild(removeBtn);
 
     footer.appendChild(info);
+    footer.appendChild(designSelect);
     footer.appendChild(actions);
     el.appendChild(footer);
 
@@ -1065,160 +1125,430 @@ body {
   }
 
   // ══════════════════════════════════════════════════════════════════
-  //  DESIGN 2: MINIMAL — Clean bottom bar, no brackets
+  //  DESIGN 2: SPEICHEN — Compact spoke burst, bottom-right corner
   // ══════════════════════════════════════════════════════════════════
-  function drawDesignMinimal(ctx, w, h, s) {
-    const barH = Math.round(h * (s.barHeightPct / 100));
-    const barY = h - barH;
-    const alpha = s.barOpacity;
+  function drawDesignSpeichen(ctx, w, h, s) {
     const scale = Math.max(w, h) / 1080;
+    const alpha = s.barOpacity;
 
-    // Solid semi-transparent bar
-    const grad = ctx.createLinearGradient(0, barY, 0, h);
-    grad.addColorStop(0, 'rgba(13,13,13,' + (alpha * 0.92) + ')');
-    grad.addColorStop(1, 'rgba(10,10,10,' + alpha + ')');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, barY, w, barH);
+    // Compact origin — bottom-right corner
+    const ox = w + Math.round(w * 0.01);
+    const oy = h + Math.round(h * 0.01);
+    const spokeCount = 14;
+    const maxLen = Math.round(Math.min(w, h) * 0.25);
+    const startAngle = Math.PI;
+    const endAngle = Math.PI * 1.5;
 
-    // Thin orange top line
-    const lineH = Math.max(2, Math.round(scale * 2.5));
-    ctx.fillStyle = '#ff6e00';
-    ctx.fillRect(0, barY, w, lineH);
+    ctx.save();
 
-    const pad = Math.round(w * 0.04);
-
-    // Left: "trompeter" white + "24" orange + ".de" grey
-    const mfs = Math.max(14, Math.round(barH * 0.38));
-    ctx.font = '700 ' + mfs + 'px ' + FF;
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'left';
-    enableShadow(ctx);
-
-    const ty = barY + barH * 0.5;
-    const p1 = 'trompeter';
-    const p2 = '24';
-    const p3 = '.de';
-    const w1 = ctx.measureText(p1).width;
-    const w2 = ctx.measureText(p2).width;
-
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText(p1, pad, ty);
-
-    ctx.font = '800 ' + mfs + 'px ' + FF;
-    ctx.fillStyle = '#ff6e00';
-    ctx.fillText(p2, pad + w1, ty);
-
-    ctx.font = '700 ' + mfs + 'px ' + FF;
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.fillText(p3, pad + w1 + w2, ty);
-    disableShadow(ctx);
-
-    // Right: "E-BIKES" badge
-    const bfs = Math.max(11, Math.round(barH * 0.28));
-    ctx.font = '800 ' + bfs + 'px ' + FF;
-    const bt = 'E-BIKES';
-    const btw = ctx.measureText(bt).width;
-    const bph = Math.round(bfs * 0.55);
-    const bpv = Math.round(bfs * 0.3);
-    const bw = btw + bph * 2;
-    const bh = bfs + bpv * 2;
-    const bx = w - pad - bw;
-    const by = barY + (barH - bh) / 2;
-
-    ctx.fillStyle = '#ff6e00';
-    roundRect(ctx, bx, by, bw, bh, 4);
+    // ── Compact radial dark backdrop ──
+    const bgGrad = ctx.createRadialGradient(ox, oy, 0, ox, oy, maxLen * 1.1);
+    bgGrad.addColorStop(0, 'rgba(0,0,0,' + (alpha * 0.65) + ')');
+    bgGrad.addColorStop(0.6, 'rgba(0,0,0,' + (alpha * 0.3) + ')');
+    bgGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bgGrad;
+    ctx.beginPath();
+    ctx.moveTo(ox, oy);
+    ctx.arc(ox, oy, maxLen * 1.1, startAngle, endAngle, false);
+    ctx.closePath();
     ctx.fill();
 
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(bt, bx + bw / 2, by + bh / 2 + 1);
+    // ── Short spokes radiating from corner ──
+    for (let i = 0; i <= spokeCount; i++) {
+      const t = i / spokeCount;
+      const angle = startAngle + t * (endAngle - startAngle);
+      const len = maxLen * (0.85 + t * 0.15);
+      const isMain = i % 3 === 0;
 
-    // Separator dots between URL and badge
-    const tfs = Math.max(9, Math.round(barH * 0.18));
-    ctx.font = '400 ' + tfs + 'px ' + FF;
-    ctx.fillStyle = 'rgba(255,255,255,0.3)';
-    ctx.textAlign = 'center';
-    const sepX = pad + w1 + w2 + ctx.measureText(p3).width + (bx - pad - w1 - w2 - ctx.measureText(p3).width) / 2;
-    ctx.fillText('E-Bikes  \u00B7  Pedelecs  \u00B7  Zubeh\u00F6r', sepX, ty);
+      ctx.beginPath();
+      ctx.moveTo(
+        ox + Math.cos(angle) * maxLen * 0.12,
+        oy + Math.sin(angle) * maxLen * 0.12
+      );
+      ctx.lineTo(
+        ox + Math.cos(angle) * len,
+        oy + Math.sin(angle) * len
+      );
+
+      if (isMain) {
+        ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.55) + ')';
+        ctx.lineWidth = Math.max(1.5, Math.round(scale * 2));
+      } else {
+        ctx.strokeStyle = 'rgba(255,255,255,' + (alpha * 0.12) + ')';
+        ctx.lineWidth = Math.max(1, Math.round(scale * 0.7));
+      }
+      ctx.stroke();
+    }
+
+    // ── Curved arc (wheel rim feel) ──
+    const arcR = Math.round(maxLen * 0.55);
+    ctx.beginPath();
+    ctx.arc(ox, oy, arcR, startAngle, endAngle, false);
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.8) + ')';
+    ctx.lineWidth = Math.max(2, Math.round(scale * 3));
+    ctx.stroke();
+
+    // Inner thinner arc
+    ctx.beginPath();
+    ctx.arc(ox, oy, arcR * 0.88, startAngle, endAngle, false);
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.2) + ')';
+    ctx.lineWidth = Math.max(1, Math.round(scale * 1.2));
+    ctx.stroke();
+
+    ctx.restore();
+
+    // ── Text — compact, near bottom-right ──
+    const textPad = Math.round(w * 0.035);
+    const textX = w - textPad;
+    const textBottomY = h - textPad;
+
+    enableShadow(ctx);
+
+    // "TROMPETER24"
+    let mfs = Math.max(13, Math.round(maxLen * 0.16));
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'right';
+
+    const mainY = textBottomY - Math.round(mfs * 1.0);
+
+    // "24" in orange first (right-aligned), then "TROMPETER" white before it
+    const t1 = 'TROMPETER';
+    const t24 = '24';
+    const t1w = ctx.measureText(t1).width;
+    const t24w = ctx.measureText(t24).width;
+    const gap = Math.round(scale * 2);
+
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText(t24, textX, mainY);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(t1, textX - t24w - gap, mainY);
+
+    // Subtitle
+    let sfs = Math.max(8, Math.round(mfs * 0.48));
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+
+    const sub1 = 'trompeter24.de';
+    const sub2 = '  |  ';
+    const sub3 = 'E-BIKES';
+    const s1w = ctx.measureText(sub1).width;
+    const s2w = ctx.measureText(sub2).width;
+    ctx.font = '800 ' + sfs + 'px ' + FF;
+    const s3w = ctx.measureText(sub3).width;
+    const subTotalW = s1w + s2w + s3w;
+    const subStartX = textX - subTotalW;
+
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText(sub1, subStartX, textBottomY);
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillText(sub2, subStartX + s1w, textBottomY);
+    ctx.font = '800 ' + sfs + 'px ' + FF;
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText(sub3, subStartX + s1w + s2w, textBottomY);
+
+    disableShadow(ctx);
   }
 
   // ══════════════════════════════════════════════════════════════════
-  //  DESIGN 3: BOLD — Full bar + diagonal stripe + prominent
+  //  DESIGN 3: KETTE — Compact chainring, bottom-right corner
   // ══════════════════════════════════════════════════════════════════
-  function drawDesignBold(ctx, w, h, s) {
-    const barH = Math.round(h * (s.barHeightPct / 100) * 1.15);
-    const barY = h - barH;
-    const alpha = s.barOpacity;
+  function drawDesignKette(ctx, w, h, s) {
     const scale = Math.max(w, h) / 1080;
+    const alpha = s.barOpacity;
 
-    // Black bar
-    ctx.fillStyle = 'rgba(0,0,0,' + alpha + ')';
-    ctx.fillRect(0, barY, w, barH);
+    // Smaller chainring — compact, bottom-right
+    const ringR = Math.round(Math.min(w, h) * 0.09);
+    const cx = w - Math.round(ringR * 1.5);
+    const cy = h - Math.round(ringR * 1.5);
+    const teeth = 20;
+    const toothH = Math.round(ringR * 0.1);
+    const toothW = 0.55;  // tooth width ratio (narrower = more bike-like)
 
-    // Orange diagonal stripe on the left
-    const stripeW = Math.round(w * 0.025);
     ctx.save();
-    ctx.fillStyle = '#ff6e00';
+
+    // ── Subtle dark backdrop ──
+    const bgGrad = ctx.createRadialGradient(cx, cy, ringR * 0.2, cx, cy, ringR * 2);
+    bgGrad.addColorStop(0, 'rgba(0,0,0,' + (alpha * 0.55) + ')');
+    bgGrad.addColorStop(0.6, 'rgba(0,0,0,' + (alpha * 0.25) + ')');
+    bgGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(cx - ringR * 2, cy - ringR * 2, ringR * 4, ringR * 4);
+
+    // ── Chainring with narrow teeth (bike-style) ──
     ctx.beginPath();
-    const skew = barH * 0.35;
-    ctx.moveTo(0, barY);
-    ctx.lineTo(stripeW + skew, barY);
-    ctx.lineTo(stripeW, h);
-    ctx.lineTo(0, h);
+    for (let i = 0; i < teeth; i++) {
+      const aBase = (i / teeth) * Math.PI * 2;
+      const aTip = aBase + (toothW / teeth) * Math.PI * 2;
+      const aEnd = ((i + 1) / teeth) * Math.PI * 2;
+      const outerR = ringR + toothH;
+
+      if (i === 0) {
+        ctx.moveTo(cx + Math.cos(aBase) * ringR, cy + Math.sin(aBase) * ringR);
+      }
+      // Tooth tip (narrow triangle)
+      ctx.lineTo(cx + Math.cos(aBase + 0.01) * outerR, cy + Math.sin(aBase + 0.01) * outerR);
+      ctx.lineTo(cx + Math.cos(aTip) * outerR, cy + Math.sin(aTip) * outerR);
+      // Back to ring
+      ctx.lineTo(cx + Math.cos(aTip + 0.01) * ringR, cy + Math.sin(aTip + 0.01) * ringR);
+      // Valley between teeth
+      ctx.lineTo(cx + Math.cos(aEnd) * ringR, cy + Math.sin(aEnd) * ringR);
+    }
     ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.85) + ')';
+    ctx.lineWidth = Math.max(1.5, Math.round(scale * 1.8));
+    ctx.stroke();
+    ctx.fillStyle = 'rgba(255,110,0,' + (alpha * 0.08) + ')';
     ctx.fill();
 
-    // Second thin stripe
-    const s2x = stripeW + skew + Math.round(scale * 4);
-    const s2w = Math.max(2, Math.round(scale * 2));
+    // ── Inner BCD ring (bolt circle) ──
     ctx.beginPath();
-    ctx.moveTo(s2x, barY);
-    ctx.lineTo(s2x + s2w + skew * 0.3, barY);
-    ctx.lineTo(s2x + s2w, h);
-    ctx.lineTo(s2x - skew * 0.3, h);
-    ctx.closePath();
-    ctx.globalAlpha = 0.5;
+    ctx.arc(cx, cy, ringR * 0.6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.3) + ')';
+    ctx.lineWidth = Math.max(1, Math.round(scale * 1.2));
+    ctx.stroke();
+
+    // ── 4 Spider arms (modern 4-arm crank style) ──
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2 - Math.PI / 4;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * ringR * 0.2, cy + Math.sin(angle) * ringR * 0.2);
+      ctx.lineTo(cx + Math.cos(angle) * ringR * 0.58, cy + Math.sin(angle) * ringR * 0.58);
+      ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.35) + ')';
+      ctx.lineWidth = Math.max(2, Math.round(scale * 3));
+      ctx.lineCap = 'round';
+      ctx.stroke();
+    }
+
+    // ── Center hub ──
+    ctx.beginPath();
+    ctx.arc(cx, cy, ringR * 0.15, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(26,26,26,' + (alpha * 0.9) + ')';
     ctx.fill();
-    ctx.globalAlpha = 1;
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.7) + ')';
+    ctx.lineWidth = Math.max(1.5, Math.round(scale * 1.5));
+    ctx.stroke();
+
+    // "e" in hub
+    const eFs = Math.max(8, Math.round(ringR * 0.18));
+    ctx.font = '800 ' + eFs + 'px ' + FF;
+    ctx.fillStyle = 'rgba(255,110,0,' + alpha + ')';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('e', cx, cy);
+
+    // ── 4 bolt holes ──
+    const boltR = Math.max(1.5, Math.round(scale * 2));
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2;
+      const bx = cx + Math.cos(angle) * ringR * 0.42;
+      const by = cy + Math.sin(angle) * ringR * 0.42;
+      ctx.beginPath();
+      ctx.arc(bx, by, boltR, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,110,0,' + (alpha * 0.2) + ')';
+      ctx.fill();
+    }
+
     ctx.restore();
 
-    const textStartX = stripeW + skew + Math.round(scale * 20);
+    // ── Text — left of the chainring ──
+    const textRightEdge = cx - ringR - toothH - Math.round(scale * 10);
+    const textCenterY = cy;
 
-    // "TROMPETER" large
-    const mfs = Math.max(18, Math.round(barH * 0.42));
-    ctx.font = '800 ' + mfs + 'px ' + FF;
-    ctx.textBaseline = 'bottom';
-    ctx.textAlign = 'left';
     enableShadow(ctx);
 
-    // "TROMPETER" with "24" appended in orange
-    ctx.fillStyle = '#ffffff';
+    // "TROMPETER24"
+    let mfs = Math.max(13, Math.round(ringR * 0.32));
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'right';
+
+    const mainY = textCenterY + Math.round(mfs * 0.1);
     const t1 = 'TROMPETER';
-    ctx.fillText(t1, textStartX, barY + barH * 0.58);
+    const t24 = '24';
     const t1w = ctx.measureText(t1).width;
+    const t24w = ctx.measureText(t24).width;
+    const gap = Math.round(scale * 2);
 
     ctx.fillStyle = '#ff6e00';
-    ctx.fillText('24', textStartX + t1w + Math.round(scale * 4), barY + barH * 0.58);
+    ctx.fillText(t24, textRightEdge, mainY);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(t1, textRightEdge - t24w - gap, mainY);
 
-    // ".de  |  E-Bikes  |  Pedelecs  |  Zubehör"
-    const sfs = Math.max(10, Math.round(barH * 0.2));
-    ctx.font = '600 ' + sfs + 'px ' + FF;
-    ctx.fillStyle = 'rgba(255,255,255,0.55)';
-    ctx.textBaseline = 'bottom';
-    ctx.fillText('.de  |  E-Bikes  \u00B7  Pedelecs  \u00B7  Zubeh\u00F6r', textStartX, barY + barH * 0.82);
+    // Subtitle
+    let sfs = Math.max(8, Math.round(mfs * 0.48));
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    const subY = textCenterY + Math.round(mfs * 0.65);
+
+    const sub1 = 'trompeter24.de';
+    const sub2 = '  |  ';
+    const sub3 = 'E-BIKES';
+    const s1w = ctx.measureText(sub1).width;
+    const s2w = ctx.measureText(sub2).width;
+    ctx.font = '800 ' + sfs + 'px ' + FF;
+    const s3w = ctx.measureText(sub3).width;
+    const subTotalW = s1w + s2w + s3w;
+    const subStartX = textRightEdge - subTotalW;
+
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText(sub1, subStartX, subY);
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillText(sub2, subStartX + s1w, subY);
+    ctx.font = '800 ' + sfs + 'px ' + FF;
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText(sub3, subStartX + s1w + s2w, subY);
+
     disableShadow(ctx);
+  }
 
-    // Right side: "E-BIKES" large outlined text
-    const bfs = Math.max(14, Math.round(barH * 0.38));
-    ctx.font = '800 ' + bfs + 'px ' + FF;
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'middle';
-    ctx.strokeStyle = '#ff6e00';
+  // ══════════════════════════════════════════════════════════════════
+  //  DESIGN 4: ECKE — Bike wheel badge, bottom-right corner
+  // ══════════════════════════════════════════════════════════════════
+  function drawDesignEcke(ctx, w, h, s) {
+    const scale = Math.max(w, h) / 1080;
+    const alpha = s.barOpacity;
+
+    // Wheel dimensions — large half-wheel emerging from bottom-right
+    const wheelR = Math.round(Math.min(w, h) * 0.18);
+    const cx = w - Math.round(wheelR * 0.35);  // center pushed into right edge
+    const cy = h - Math.round(wheelR * 0.15);  // center pushed into bottom edge
+    const spokeCount = 12;
+
+    ctx.save();
+
+    // ── Dark semi-transparent backdrop behind wheel area ──
+    const bgGrad = ctx.createRadialGradient(cx, cy, wheelR * 0.2, cx, cy, wheelR * 1.4);
+    bgGrad.addColorStop(0, 'rgba(0,0,0,' + (alpha * 0.65) + ')');
+    bgGrad.addColorStop(0.7, 'rgba(0,0,0,' + (alpha * 0.35) + ')');
+    bgGrad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(cx - wheelR * 1.5, cy - wheelR * 1.5, wheelR * 3, wheelR * 3);
+
+    // ── Outer rim (orange, bold) ──
+    ctx.beginPath();
+    ctx.arc(cx, cy, wheelR, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,110,0,' + alpha + ')';
+    ctx.lineWidth = Math.max(3, Math.round(scale * 4));
+    ctx.stroke();
+
+    // ── Inner rim (thinner, subtle) ──
+    ctx.beginPath();
+    ctx.arc(cx, cy, wheelR * 0.85, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.3) + ')';
     ctx.lineWidth = Math.max(1, Math.round(scale * 1.5));
-    ctx.strokeText('E-BIKES', w - Math.round(w * 0.04), barY + barH * 0.5);
-    ctx.fillStyle = 'rgba(255,110,0,0.15)';
-    ctx.fillText('E-BIKES', w - Math.round(w * 0.04), barY + barH * 0.5);
+    ctx.stroke();
+
+    // ── Spokes ──
+    for (let i = 0; i < spokeCount; i++) {
+      const angle = (i / spokeCount) * Math.PI * 2 - Math.PI / 2;
+      const innerR = wheelR * 0.15;
+      const outerR = wheelR * 0.83;
+      ctx.beginPath();
+      ctx.moveTo(cx + Math.cos(angle) * innerR, cy + Math.sin(angle) * innerR);
+      ctx.lineTo(cx + Math.cos(angle) * outerR, cy + Math.sin(angle) * outerR);
+      ctx.strokeStyle = 'rgba(255,255,255,' + (alpha * 0.18) + ')';
+      ctx.lineWidth = Math.max(1, Math.round(scale * 1));
+      ctx.stroke();
+    }
+
+    // ── Hub (center circle) — dark with orange ring ──
+    ctx.beginPath();
+    ctx.arc(cx, cy, wheelR * 0.15, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(26,26,26,' + (alpha * 0.9) + ')';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,110,0,' + (alpha * 0.7) + ')';
+    ctx.lineWidth = Math.max(2, Math.round(scale * 2));
+    ctx.stroke();
+
+    // ── Small "e" in the hub (for e-bike) ──
+    const eFs = Math.max(8, Math.round(wheelR * 0.16));
+    ctx.font = '800 ' + eFs + 'px ' + FF;
+    ctx.fillStyle = 'rgba(255,110,0,' + alpha + ')';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('e', cx, cy);
+
+    ctx.restore();
+
+    // ── Text — positioned to the left of the wheel ──
+    const textRightEdge = cx - wheelR - Math.round(scale * 12);
+    const textBottomY = h - Math.round(h * 0.03);
+
+    enableShadow(ctx);
+
+    // "TROMPETER" — large
+    let mfs = Math.max(14, Math.round(wheelR * 0.28));
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'right';
+
+    // Auto-scale if text is too wide
+    const maxTextW = textRightEdge - Math.round(w * 0.04);
+    const mainText = 'TROMPETER24';
+    while (ctx.measureText(mainText).width > maxTextW && mfs > 10) {
+      mfs--;
+      ctx.font = '800 ' + mfs + 'px ' + FF;
+    }
+
+    const mainY = textBottomY - Math.round(mfs * 0.95);
+
+    // "TROMPETER" white
+    ctx.fillStyle = '#ffffff';
+    const t1 = 'TROMPETER';
+    const t1w = ctx.measureText(t1).width;
+    ctx.font = '800 ' + mfs + 'px ' + FF;
+    const t24w = ctx.measureText('24').width;
+    const totalW = t1w + Math.round(scale * 2) + t24w;
+    const startX = textRightEdge - totalW;
+
+    ctx.textAlign = 'left';
+    ctx.fillText(t1, startX, mainY);
+
+    // "24" orange
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText('24', startX + t1w + Math.round(scale * 2), mainY);
+
+    // "trompeter24.de | E-BIKES" — subtitle
+    let sfs = Math.max(9, Math.round(mfs * 0.5));
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    ctx.textAlign = 'right';
+
+    const subY = textBottomY;
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('trompeter24.de', textRightEdge - ctx.measureText('  |  E-BIKES').width, subY);
+
+    const urlW = ctx.measureText('trompeter24.de').width;
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.textAlign = 'left';
+    const sepStartX = textRightEdge - ctx.measureText('  |  E-BIKES').width + urlW;
+
+    // Recalculate with right-align approach
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    const sub1 = 'trompeter24.de';
+    const sub2 = '  |  ';
+    const sub3 = 'E-BIKES';
+    ctx.font = '700 ' + sfs + 'px ' + FF;
+    const sub3w = ctx.measureText(sub3).width;
+    const sub2w = ctx.measureText(sub2).width;
+    const sub1w = ctx.measureText(sub1).width;
+    const subStartX = textRightEdge - sub1w - sub2w - sub3w;
+
+    ctx.textAlign = 'left';
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText(sub1, subStartX, subY);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
+    ctx.fillText(sub2, subStartX + sub1w, subY);
+
+    ctx.font = '800 ' + sfs + 'px ' + FF;
+    ctx.fillStyle = '#ff6e00';
+    ctx.fillText(sub3, subStartX + sub1w + sub2w, subY);
+
+    disableShadow(ctx);
   }
 
   // ── E-BIKES badge helper (used by Rahmen design) ──
@@ -1244,19 +1574,21 @@ body {
   }
 
   // ── Main dispatch ──
-  function drawBranding(ctx, canvasW, canvasH, settings) {
-    switch (selectedDesign) {
-      case 'rahmen':  drawDesignRahmen(ctx, canvasW, canvasH, settings); break;
-      case 'minimal': drawDesignMinimal(ctx, canvasW, canvasH, settings); break;
-      case 'bold':    drawDesignBold(ctx, canvasW, canvasH, settings); break;
+  function drawBranding(ctx, canvasW, canvasH, settings, design) {
+    const d = design || selectedDesign;
+    switch (d) {
+      case 'rahmen':   drawDesignRahmen(ctx, canvasW, canvasH, settings); break;
+      case 'ecke':     drawDesignEcke(ctx, canvasW, canvasH, settings); break;
+      case 'speichen': drawDesignSpeichen(ctx, canvasW, canvasH, settings); break;
+      case 'kette':    drawDesignKette(ctx, canvasW, canvasH, settings); break;
     }
   }
 
   // ── Generate mini previews for design cards ──
   function generatePreviews() {
-    const designs = ['rahmen', 'minimal', 'bold'];
-    const drawFns = { rahmen: drawDesignRahmen, minimal: drawDesignMinimal, bold: drawDesignBold };
-    const previewIds = { rahmen: 'previewRahmen', minimal: 'previewMinimal', bold: 'previewBold' };
+    const designs = ['rahmen', 'ecke', 'speichen', 'kette'];
+    const drawFns = { rahmen: drawDesignRahmen, ecke: drawDesignEcke, speichen: drawDesignSpeichen, kette: drawDesignKette };
+    const previewIds = { rahmen: 'previewRahmen', ecke: 'previewEcke', speichen: 'previewSpeichen', kette: 'previewKette' };
 
     const pw = 270, ph = 480;
     const settings = { barHeightPct: 10, barOpacity: 0.9 };
@@ -1328,7 +1660,7 @@ body {
         const ctx = canvas.getContext('2d');
 
         ctx.drawImage(img, 0, 0);
-        drawBranding(ctx, canvas.width, canvas.height, settings);
+        drawBranding(ctx, canvas.width, canvas.height, settings, item.design);
 
         canvas.toBlob((blob) => {
           if (!blob) { reject(new Error('Canvas toBlob failed')); return; }
@@ -1459,7 +1791,7 @@ body {
           if (video.currentTime !== lastTime) {
             lastTime = video.currentTime;
             ctx.drawImage(video, 0, 0, cw, ch);
-            drawBranding(ctx, cw, ch, settings);
+            drawBranding(ctx, cw, ch, settings, item.design);
           }
           item.progress = Math.min(99, Math.round((video.currentTime / duration) * 100));
           const el = document.querySelector('.queue-item[data-id="' + item.id + '"] .progress-bar');
