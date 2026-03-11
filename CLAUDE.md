@@ -76,4 +76,4 @@
 - `drawBranding()` akzeptiert einen optionalen `design`-Parameter (für pro-Datei-Auswahl)
 - Jedes Queue-Item speichert `item.design` — bei Design-Änderung wird Status auf "pending" zurückgesetzt
 - Text in allen Designs hat Auto-Skalierung, damit nichts abgeschnitten wird
-- Noch NICHT gepusht — wird erst nach Kunden-Feedback gepusht
+- Gepusht am 2026-03-11 — Live unter https://loubna2304.github.io/trompeter-branding/
