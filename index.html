@@ -1589,12 +1589,14 @@ body {
     if (!autohausLogoReady) return;
 
     // ── Logo-Bild (PNG mit Transparenz, Bikes orange, Text weiß) ──
-    const bm = Math.round(h * 0.02);
     const logoAspect = autohausLogoImg.naturalWidth / autohausLogoImg.naturalHeight;
     const logoW = Math.round(w * 0.65);
     const logoH = Math.round(logoW / logoAspect);
+    const urlFs = Math.max(8, Math.round(barH * 0.2));
+    const textSpace = Math.round(urlFs * 1.8);
+    const bm = Math.round(h * 0.02);
     const logoX = Math.round((w - logoW) / 2);
-    const logoY = Math.round(h - logoH - bm);
+    const logoY = Math.round(h - logoH - bm - textSpace);
 
     ctx.save();
     ctx.globalAlpha = alpha;
@@ -1603,7 +1605,6 @@ body {
 
     // ── "trompeter24.de" — dezent darunter ──
     enableShadow(ctx);
-    const urlFs = Math.max(8, Math.round(barH * 0.2));
     ctx.font = '600 ' + urlFs + 'px ' + FF;
     ctx.fillStyle = 'rgba(255,255,255,0.45)';
     ctx.textAlign = 'center';
