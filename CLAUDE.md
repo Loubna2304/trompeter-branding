@@ -11,6 +11,8 @@
 ## Branding-Konzept
 - E-Bike-Bereich soll **getrennt vom Autohaus** gebrantet werden
 - Autohaus-Farben (Rot #C7001A, Blau #004A80, Grün #b5e941) werden NICHT verwendet
+- Etablierter Claim: **"E-BIKES AUS DEM AUTOHAUS"** (von Andi/Andreas bestätigt)
+- Logo analog der Visitenkarte von Andreas
 
 ## Farbschema E-Bikes
 - **Schwarz (#1a1a1a)** — Hauptfarbe (Waldbike-Logo ist schwarz, geometrische Dreiecke)
@@ -31,16 +33,26 @@
 
 ## Tool-Features
 - Drag & Drop Upload (JPG, PNG, WebP, MP4, WebM)
-- **4 Design-Varianten (alle Fahrrad-/E-Bike-thematisch):**
+- **5 Design-Varianten:**
   1. **Rahmen** — Orange Eck-Klammern + Gradient + Akzentlinie + Text
   2. **Rad** — Stilisiertes Fahrrad-Rad (Felge + 12 Speichen + Nabe mit "e") unten rechts, Text links daneben
   3. **Speichen** — Kompakter Speichen-Burst (14 Speichen) aus der Ecke unten rechts, orange Bögen, Text im Strahlbereich
   4. **Kettenkranz** — Kompaktes Fahrrad-Kettenblatt (20 schmale Zähne, 4-Arm Spider modern, Schraubenlöcher, "e" in Nabe), Text links daneben
+  5. **Autohaus** — "E-BIKES AUS DEM AUTOHAUS" Logo-Stil (nach Visitenkarte von Andreas)
 - **Individuelle Design-Wahl pro Datei** — Dropdown in jedem Queue-Item, nicht nur global
 - Einstellbare Balkenhöhe, Transparenz, Bildformat, Qualität
 - Batch-Verarbeitung, Vorschau, Download
 - Font: Montserrat (wie i:SY)
 - Komplett auf Deutsch
+
+## Design 5: Autohaus — ✅ FERTIG
+- **Logo:** Gemini-generiertes PNG mit transparentem Hintergrund (1200x250, ~237KB Base64)
+- **Farben:** Fahrräder links+rechts in Orange (#ff6e00), Text "E-BIKES AUS DEM AUTOHAUS" in Weiß
+- **Rendering:** Direkt als PNG mit Alpha-Transparenz auf Gradient — kein `lighten` compositing mehr nötig
+- **Logo-Größe:** 65% der Bildbreite, zentriert
+- **"trompeter24.de"** dezent unter dem Logo (weiß, 45% Opacity)
+- **Funktion:** `drawDesignAutohaus()` — einfaches `drawImage()`, keine manuellen Orange-Kreise
+- **Historie:** Altes Visitenkarten-JPEG (signal-2026-03-11-175630.jpeg) wurde durch Gemini-Logo ersetzt (2026-03-23). Pixelweise Färbung von JPEGs hat nie sauber funktioniert (JPEG-Artefakte).
 
 ## Design-Historie
 - **Minimal** (dezenter Balken) und **Bold** (diagonale Streifen) wurden entfernt — Kunde fand sie nicht überzeugend
@@ -50,12 +62,13 @@
 - Speichen v1 Linien waren zu lang → v2 kompakter (25% statt 45% Reichweite)
 - Referenz: Autohaus Rheims (Moers) und Auto Franken (VW) für Wasserzeichen-Konzept auf Facebook
 - Entwürfe wurden dem Kunden (Christoph + Andreas) in Social-Media-Gruppe zur Abstimmung geschickt
+- **2026-03-14:** Feedback von Andi (Andreas) — will etablierten Claim "E-BIKES AUS DEM AUTOHAUS" mit Logo von Visitenkarte nutzen → neues Design 5 "Autohaus" erstellt
 
 ## Kunde / Kommunikation
 - Ansprechpartner: **Christoph** und **Andreas** (Social-Media-Gruppe)
 - Kommunikation: **informell, Du-Form**, locker
-- Entwürfe zur Abstimmung geschickt (4 Designs, jeweils mit demselben Beispielbild)
-- Wartet auf Feedback der Gruppe
+- **Andreas (Andi):** Hat Feedback gegeben (2026-03-14) — will "eBikes aus dem Autohaus" Branding mit etabliertem Logo (Visitenkarte)
+- Entwürfe zur Abstimmung geschickt — Design 5 "Autohaus" basierend auf Andis Feedback
 
 ## Video-Verarbeitung
 - MediaRecorder mit **voller Originalauflösung** (kein Downscaling)
@@ -68,6 +81,7 @@
 - Kunde hat ein Beispielbild gezeigt (Screenshot: trompeter_ebike_post.jpg)
 - Stil: Eck-Klammern oben, "TROMPETER" groß unten, "trompeter24.de | E-BIKES" mit Akzentlinie
 - Inspiration: Facebook-Posts von Autohaus Rheims (Logo-Badge mit Swoosh unten rechts) und Auto Franken
+- **Autohaus-Logo:** signal-2026-03-11-175630.jpeg (Visitenkarte Andreas) — geteiltes Fahrrad mit "E-BIKES AUS DEM AUTOHAUS"
 
 ## Technische Notizen
 - Single-File HTML App (kein Build-Tool nötig)
@@ -76,4 +90,6 @@
 - `drawBranding()` akzeptiert einen optionalen `design`-Parameter (für pro-Datei-Auswahl)
 - Jedes Queue-Item speichert `item.design` — bei Design-Änderung wird Status auf "pending" zurückgesetzt
 - Text in allen Designs hat Auto-Skalierung, damit nichts abgeschnitten wird
-- Gepusht am 2026-03-11 — Live unter https://loubna2304.github.io/trompeter-branding/
+- Design 5: `drawDesignAutohaus()` mit `AUTOHAUS_LOGO_B64` (PNG, transparent, Bikes orange)
+- Base64-Logo geladen in `autohausLogoImg`, `autohausLogoReady` Flag
+- Gepusht am 2026-03-23 — Live unter https://loubna2304.github.io/trompeter-branding/
