@@ -129,7 +129,9 @@
 - **KW18 (27.04.-03.05.2026) — Live-Material aus Festival-Live-Dreh 18.04.:**
   - Di 28.04.: **DJI_20260418_141601_564_video.mov** — Reel **„Andi: Verkauft!"** (Andreas vom Festival-Stand, hebt Gravel-Bike hoch + ruft „Verkauft!", Off-Stimme „Mitarbeiter des Monats"). Throwback-Hook brückt zum Showroom Brambauer. ⚠️ **Performance: nur ~500 Views** (vs. 18k–80k bei Challenge-Reels). Throwback ohne Mitmach-Mechanik zieht bei dieser Audience nicht.
   - Story (Datum offen): **IMG_2060.mov** — Saxophonist Lünen vom 25.04. (3 Min Video → in 3× 15-Sek-Häppchen schneiden, gestaffelt posten)
-  - Sa 02.05. + So 03.05.: **offen** — Festival-Archiv 2025 ist ausgereizt (IMG_7099 zu kurz/nicht spannend, IMG_7092 zu langweilig, IMG_7085 schon gepostet). Loubna holt frisches Material aus iCloud (anderer User-Account) in den Nachschub-Ordner.
+  - Sa 02.05. abends: **Trompeter.24 Reel für den 02.05.26.mov** — Roughtones-Probe im Auto- und Bikehouse, Christoph an den Drums. Caption übernimmt Andis Wording „Wir machen nicht nur in Bikes, wir rocken den ganzen Laden 😎". Charakter-Post für Sympathie + Kommentare.
+  - So 03.05. vormittags: **IMG_7092.mov** (NICHT Service-Moment wie zuvor angenommen — Korrektur: ist „How Slow Can You Go"-Challenge am Waldbike-Stand, junger Mann balanciert langsam über 5 m, Moderator zählt Sekunden, ~50 Sek). Cold Open auf Sek 47 vom Zähler, Hook „How slow can you go? 🐌", Caption fragt nach Sekunden in den Kommentaren, End-Screen CTA Showroom Brambauer. Konter zur viralen Bike-Challenge vom 29.03. („Wie lange hältst du dich drauf?" → jetzt das Gegenteil „Wie LANGSAM kannst du?").
+  - Caption + Signal-Freigabe-Texte auf Desktop: `caption_drummer_reel.txt`, `caption_slow_challenge_reel.txt`, `signal_freigabe_kw18_wochenende.txt`
   - **Reel-Schnittplan Andi:** Cold Open auf „Verkauft!" (Sek 0-1), Off-Witz „Mitarbeiter des Monats" (Sek 1-3), Andi-Charakter (Sek 3-7), Bikes-Schwenk (Sek 7-11), End-Screen schwarz „Jetzt im Showroom Brambauer" (11-15). Veralteter Original-CTA „kommt nach Dortmund" rausgeschnitten.
   - **Untertitel manuell** (CapCut Free hat keine Auto-Captions ohne Pro): „Schon eins verkauft heute?" / **VERKAUFT!** (orange, größer) / „Mitarbeiter des Monats." / „Andi vom Trompeter-Stand in Dortmund."
   - **Caption + Signal-Freigabe-Texte** liegen auf Desktop: `/Users/ki/Desktop/caption_andi_reel.txt` + `/Users/ki/Desktop/signal_freigabe_andi_reel.txt`
@@ -164,7 +166,7 @@
   - IMG_7081.mov (Kunde auf orange Waldbike, Probefahrt) — ✅ gepostet So 26.04.2026
   - IMG_7085.mov ("How slow can you go?" Challenge) — ✅ gepostet (Datum nachtragen)
   - IMG_7091.mov (Action am Stand, Kunde auf buntem Bike) — ✅ gepostet Sa 25.04.2026
-  - IMG_7092.mov (Service/Schrauber-Moment am Stand) — ❌ verworfen (50 Sek, langweilig, nichts passiert, nichts gesagt)
+  - IMG_7092.mov — Korrektur: ist KEIN Service-Moment, sondern „How Slow Can You Go"-Challenge am Waldbike-Stand (50 Sek, Slow-Race über 5 m, Moderator zählt) → ✅ geplant So 03.05.2026
   - IMG_7099.mov (3 Leute lachend auf Cargo-Bike) — ❌ verworfen (14 Sek, zu schnell, nicht spannend genug für Reel)
 
 ### Baumstamm-Challenge Reels — Sonntag 19.04.2026 (UMGESETZT)
