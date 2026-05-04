@@ -114,14 +114,14 @@
 - **KW13 (24.03.-30.03.2026):**
   - Mo 24.03.: IMG_7386.mov (Dropper-Sattel Trick)
   - Do 27.03.: IMG_8044.mov (Erste-Person-Fahrt am Kanal)
-  - So 29.03.: IMG_7396.mov (E-Bike + Live-Band) — **VIRAL: ~18.000 Views auf Instagram** (Bike-Challenge "Wie lange hältst du dich drauf?")
+  - So 29.03.: IMG_7396.mov (E-Bike + Live-Band) — Bike-Challenge „Wie lange hältst du dich drauf?". **Korrektur Loubna 04.05.:** war NICHT der virale 18K-Hit wie früher dokumentiert — Performance unklar, eher mittelmäßig. Woher die 18K-Zahl ursprünglich kam, ist offen.
 - **KW14 (31.03.-06.04.2026):**
   - Fr 04.04.: Trompeter24 Reel für 04.04.2026.mp4 (fertig)
   - So 06.04.: IMG_7062.mov — Reel "Bike-Challenge" (Wie lange hältst du dich drauf?)
   - Di 08.04.: IMG_7047.jpeg — Foto "Hund im Lastenrad" (Design 5 Autohaus)
 - **KW16 (13.04.-19.04.2026) — Festival-Posts:**
   - Sa 18.04.: Live-Dreh beim DEW21 Festival — **Baumstamm-Challenge** mit mehreren Teilnehmern (Lila-Helm „12,4 kg", Beige-Shirt „14 kg", Weinrot)
-  - So 19.04.: **3 Reels** aus dem Baumstamm-Material gepostet (vor Festivalende 17 Uhr) + Countdown-Stories dazwischen
+  - So 19.04.: **3 Reels** aus dem Baumstamm-Material gepostet (vor Festivalende 17 Uhr) + Countdown-Stories dazwischen. **Performance (Stand 04.05.):** ~400 Views pro Reel — eher mittelmäßig. Lila-Helm-Schnipsel („12,4 kg") war der Best-Performer der Serie. Heißt: „Live schlägt Archiv" hat sich so nicht bestätigt — Live-Material allein reicht nicht, Hook + Mitmach-Mechanik bleibt entscheidend.
 - **KW17 (20.04.-26.04.2026) — Festival-Nachlauf aus Archiv 2025:**
   - Sa 25.04.: IMG_7091.mov (Action am Stand, Kunde auf buntem Bike) — Caption-Hook „Samstagmorgen, Sonne raus, Bike raus"
   - So 26.04.: IMG_7081.mov (Kunde auf orange Waldbike, Probefahrt) — Caption-Hook „Guck dir das Grinsen an"
@@ -130,17 +130,23 @@
   - Di 28.04.: **DJI_20260418_141601_564_video.mov** — Reel **„Andi: Verkauft!"** (Andreas vom Festival-Stand, hebt Gravel-Bike hoch + ruft „Verkauft!", Off-Stimme „Mitarbeiter des Monats"). Throwback-Hook brückt zum Showroom Brambauer. ⚠️ **Performance: nur ~500 Views** (vs. 18k–80k bei Challenge-Reels). Throwback ohne Mitmach-Mechanik zieht bei dieser Audience nicht.
   - Story (Datum offen): **IMG_2060.mov** — Saxophonist Lünen vom 25.04. (3 Min Video → in 3× 15-Sek-Häppchen schneiden, gestaffelt posten)
   - Sa 02.05. abends: **Trompeter.24 Reel für den 02.05.26.mov** — Roughtones-Probe im Auto- und Bikehouse, Christoph an den Drums. Caption übernimmt Andis Wording „Wir machen nicht nur in Bikes, wir rocken den ganzen Laden 😎". Charakter-Post für Sympathie + Kommentare.
-  - So 03.05. vormittags: **IMG_7092.mov** (NICHT Service-Moment wie zuvor angenommen — Korrektur: ist „How Slow Can You Go"-Challenge am Waldbike-Stand, junger Mann balanciert langsam über 5 m, Moderator zählt Sekunden, ~50 Sek). Cold Open auf Sek 47 vom Zähler, Hook „How slow can you go? 🐌", Caption fragt nach Sekunden in den Kommentaren, End-Screen CTA Showroom Brambauer. Konter zur viralen Bike-Challenge vom 29.03. („Wie lange hältst du dich drauf?" → jetzt das Gegenteil „Wie LANGSAM kannst du?").
+  - So 03.05. vormittags: **IMG_7092.mov** (NICHT Service-Moment wie zuvor angenommen — Korrektur: ist „How Slow Can You Go"-Challenge am Waldbike-Stand, junger Mann balanciert langsam über 5 m, Moderator zählt Sekunden, ~50 Sek). Cold Open auf Sek 47 vom Zähler, Hook „How slow can you go? 🐌", Caption fragt nach Sekunden in den Kommentaren, End-Screen CTA Showroom Brambauer. Konter zur Bike-Challenge vom 29.03. **Performance (Stand 04.05.): ~400 Views — nicht gut angekommen.**
+  - **Sa 02.05. Drummer-Reel Performance (Stand 04.05.): ~400 Views.** Charakter-Post ohne Mitmach-Mechanik zog nicht.
   - Caption + Signal-Freigabe-Texte auf Desktop: `caption_drummer_reel.txt`, `caption_slow_challenge_reel.txt`, `signal_freigabe_kw18_wochenende.txt`
   - **Reel-Schnittplan Andi:** Cold Open auf „Verkauft!" (Sek 0-1), Off-Witz „Mitarbeiter des Monats" (Sek 1-3), Andi-Charakter (Sek 3-7), Bikes-Schwenk (Sek 7-11), End-Screen schwarz „Jetzt im Showroom Brambauer" (11-15). Veralteter Original-CTA „kommt nach Dortmund" rausgeschnitten.
   - **Untertitel manuell** (CapCut Free hat keine Auto-Captions ohne Pro): „Schon eins verkauft heute?" / **VERKAUFT!** (orange, größer) / „Mitarbeiter des Monats." / „Andi vom Trompeter-Stand in Dortmund."
   - **Caption + Signal-Freigabe-Texte** liegen auf Desktop: `/Users/ki/Desktop/caption_andi_reel.txt` + `/Users/ki/Desktop/signal_freigabe_andi_reel.txt`
+- **KW19 (04.05.-10.05.2026):**
+  - Di 05.05.: Reel **„Baumstamm-Challenge Teil 2"** — Quelle `IMG_1898.mov` aus `/Users/ki/Claude/Trompeterhaus Album Kopie/Nachschub Trompeter/`, **nur ab Sek 19** (lila Helm raus, weil Teil 1 schon gepostet). Genutzt werden Beige-Shirt-Mann („glatte 14 kg") + Weinrot-Shirt-Mann + Schwenk auf Schätz-Schild. Schnittplan 15 Sek mit **Mid-Hook „Höher oder tiefer als 14? 🤔"** zwischen den beiden Schätzern. End-Screen „Schreib 1 oder 2 in die Kommentare 👇" → Tipp-Mechanik.
+  - Caption + Signal-Freigabe-Texte auf Desktop: `caption_baumstamm_teil2.txt`, `signal_freigabe_baumstamm_teil2.txt`.
+  - Verworfene Vorüberlegung: Voting-Reel mit IMG_7081 (grüner Hut) + IMG_1898 (lila Helm) — Loubna entschied sich gegen Voting-Format und für Sequel zum Baumstamm.
+- **Strategie-Telefonat geplant (KW19):** Loubna will mit Christoph + Andi telefonieren, weil Festival-Clips + Challenge-Hooks aus dem Material langsam erschöpft sind und alternative Formate nicht annähernd an Challenges rankommen. Ziel: gemeinsam neue Ideen + Drehs planen. Signal-Anschreiben: `/Users/ki/Desktop/signal_telefonat_naechste_steps.txt`.
 - **Performance-Erkenntnisse:**
-  - Challenge-Format (Bike-Challenge) hat 18K+ Views gemacht → **Format funktioniert bei der Zielgruppe**
-  - Kollegin Oldtimer-Video: ~40.000 Views, viele Kommentare
-  - Danach Einbruch (normal nach viralem Post, Algorithmus "beruhigt sich")
-  - **Andi „Verkauft!" Reel (Di 28.04.): nur ~500 Views** — Throwback ohne Challenge-Hook performt schlecht. Festival-Material ohne Mitmach-Mechanik zieht nicht.
+  - Challenge-Format funktioniert bei der Zielgruppe → bleibt Anker-Format. Die früher dokumentierte „18K Views"-Zahl bei IMG_7396 ist nach Loubna-Korrektur (04.05.) nicht belegt — die belastbare Erkenntnis ist trotzdem: Challenge-Hook + Mitmach-Mechanik > alles andere.
+  - Kollegin Oldtimer-Video: ~40.000 Views, viele Kommentare (anderer Account, andere Audience)
+  - **Aktuelle Schwächephase (KW18, Stand 04.05.):** Drummer-Reel ~400, Slow-Challenge ~400, Andi „Verkauft!" ~500, Baumstamm-Reels (KW16) ~400. Gemeinsamer Nenner: entweder kein Mitmach-Hook (Drummer, Andi) oder bekannte Mechanik ohne Neuigkeitswert (Slow nach Baumstamm, beide Schätz-/Geschicklichkeits-Challenges).
   - **Loubnas Strategie-Frage (30.04.):** Eigener Bike-Instagram-Account erwogen. Empfehlung: erstmal nicht splitten — 500 Follower wegwerfen, USP „E-Bikes aus dem Autohaus" lebt vom Kombi-Account. Format-Problem (kein Challenge-Hook), nicht Account-Problem.
+  - **Erkenntnis 04.05.:** Festival-Material ist endlich. Nach Erschöpfung braucht's neue Mechaniken — nicht mehr nur Variationen vom Festival-Setup. Telefonat mit Kunde dient genau dem.
 
 ### KW16 (13.04.-19.04.2026) — DEW21 E-Bike Festival Woche
 - **Festival:** DEW21 E-Bike Festival Dortmund, Fr 17.04. – So 19.04.2026
