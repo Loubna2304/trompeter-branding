@@ -66,9 +66,24 @@
 
 ## Kunde / Kommunikation
 - Ansprechpartner: **Christoph** und **Andreas** (Social-Media-Gruppe)
+- **Andis E-Mail:** andreas.jubt@trompeter24.de
 - Kommunikation: **informell, Du-Form**, locker
 - **Andreas (Andi):** Hat Feedback gegeben (2026-03-14) — will "eBikes aus dem Autohaus" Branding mit etabliertem Logo (Visitenkarte)
 - Entwürfe zur Abstimmung geschickt — Design 5 "Autohaus" basierend auf Andis Feedback
+
+## Loubnas Honorar
+- **Stundensatz:** 45,- € netto/h
+- **Hauptkanal aktuell:** 500,- € netto/Monat (3 Posts/Woche)
+- **Steuer:** Kleinunternehmerin nach §19 UStG (keine USt.)
+
+## Vorab-Angebot 2. Bike-Kanal (Stand 08.05.2026)
+- **Versendet** an Andi per E-Mail nach Meeting am 08.05.
+- **Setup einmalig:** 200,- € netto (Account, Branding, Strategie, Launch-Posts)
+- **Monatlich (beide Kanäle parallel):** 700,- € netto (3 Posts/Woche Hauptkanal + 5 Posts/Woche 2. Kanal)
+- **Strategie:** Aufbau-Phase 5 Posts/Woche durch Recycling letzte 3 Monate; bestehendes Material reicht 3-4 Wochen, danach Nachschub-Pflicht
+- **Test-Phase:** 4 Wochen, danach Zahlen vergleichen + entscheiden
+- **Hintergrund:** Geteilter Auto+Bike-Account hat schwache Auto-Performance, die Bike-Reach mitgezogen hat. Eigener Kanal soll Algorithmus-Drag rausnehmen.
+- **Status:** Vorab-Angebot, wartet auf interne Abstimmung Andi+Christoph; offizielles Angebot folgt nach Zusage
 
 ## Video-Verarbeitung
 - MediaRecorder mit **voller Originalauflösung** (kein Downscaling)
@@ -137,9 +152,16 @@
   - **Untertitel manuell** (CapCut Free hat keine Auto-Captions ohne Pro): „Schon eins verkauft heute?" / **VERKAUFT!** (orange, größer) / „Mitarbeiter des Monats." / „Andi vom Trompeter-Stand in Dortmund."
   - **Caption + Signal-Freigabe-Texte** liegen auf Desktop: `/Users/ki/Desktop/caption_andi_reel.txt` + `/Users/ki/Desktop/signal_freigabe_andi_reel.txt`
 - **KW19 (04.05.-10.05.2026):**
-  - Di 05.05.: Reel **„Baumstamm-Challenge Teil 2"** — Quelle `IMG_1898.mov` aus `/Users/ki/Claude/Trompeterhaus Album Kopie/Nachschub Trompeter/`, **nur ab Sek 19** (lila Helm raus, weil Teil 1 schon gepostet). Genutzt werden Beige-Shirt-Mann („glatte 14 kg") + Weinrot-Shirt-Mann + Schwenk auf Schätz-Schild. Schnittplan 15 Sek mit **Mid-Hook „Höher oder tiefer als 14? 🤔"** zwischen den beiden Schätzern. End-Screen „Schreib 1 oder 2 in die Kommentare 👇" → Tipp-Mechanik.
-  - Caption + Signal-Freigabe-Texte auf Desktop: `caption_baumstamm_teil2.txt`, `signal_freigabe_baumstamm_teil2.txt`.
-  - Verworfene Vorüberlegung: Voting-Reel mit IMG_7081 (grüner Hut) + IMG_1898 (lila Helm) — Loubna entschied sich gegen Voting-Format und für Sequel zum Baumstamm.
+  - Di 05.05.: Reel **„Baumstamm-Challenge Teil 2"** — Quelle `IMG_1898.mov`, **~3.000+ Views (best performer KW18/19)**. Bestätigt: Challenge-Format mit Mitmach-Tipp (1 oder 2) bleibt Anker.
+  - **Meeting Andi 08.05.** (Google Meet, 15 Min) — Ergebnisse: Andi schickt alte Videos (warte auf Originale, nicht bearbeitet); 2.-Kanal-Idee wird verfolgt; Andi geht auf weitere Bike-Festivals → soll dort kurze Clips drehen (lustig + Challenges, ungefährlich).
+  - **Vorab-Angebot 2. Kanal an andreas.jubt@trompeter24.de versendet** (08.05. abends) — siehe oben „Vorab-Angebot 2. Bike-Kanal"
+  - Sa 09.05.: Reel **„Stell dir vor, du sitzt drauf"** — POV-Reel mit Hailuo AI generiert (Hailuo 2.3, ~25 Credits/Clip). Start-Frame aus IMG_8043.mov (POV-Fahrt). 3 finale Clips: POV-Fahrt durch Park → Schulhof mit Pylonen + Bodenmarkierungen (Schul-Setting funktioniert mit „Fahrradprüfung" / „beige plastered school building" / „white chalk arrows" im Prompt) → Aussicht/Hügel. Story-Bogen: Realität → Flashback → Loslassen. **Hook am Ende:** „Wie viele Versuche hast du gebraucht? Schreib's mir in die Kommentare 👇" — niedrige Hürde, eine Zahl reicht. **Übergänge:** Wave/Ripple-Übergang Sek 5 + Harfen-Sound (Simpsons-Flashback-Effekt). Vintage-Filter „70s/80s" ~30-40%. Texte (Variante 3): „Wann hast du DAS zuletzt gemacht?" → „Genau — Fahrradprüfung. 🚸" → „Heute hat's MICH erwischt — plötzlich war's wieder da." → CTA. Caption + Signal-Freigabe-Texte: `/Users/ki/Desktop/caption_fahrradpruefung_reel.txt` + `signal_freigabe_fahrradpruefung_reel.txt`. **Status (Stand Posting-Vorabend):** Reel produziert, Signal-Freigabe-Anfrage an Christoph + Andi mit Transparenz-Frage (KI-Hinweis in Caption ja/nein). Posting Sa 10-12 Uhr nach Freigabe.
+- **Lerneffekt KW19:** (a) Slalom-Konzept aus geradem POV-Frame funktioniert nicht in KI — Pylonen werden zu Wegmarkierung, nicht Slalom-Hindernis. (b) „Schaffst du das auch?"-Hooks sind unfair, wenn Inhalt KI-generiert ist → stattdessen ehrliche Mitmach-Frage. (c) Schul-Setting-Prompt mit deutschen Details (Fahrradprüfung, beige Schule, Kreidemarkierungen, kein US-Backstein) trifft Gen X. (d) IMG_7373 ist KEIN POV-Material trotz Pylonen-Inhalt.
+  - So 10.05. abends: Reel **„How slow can you go" Festival 2025-Recycling** — Quelle **IMG_7069** (Mann in **orange-brauner Jogginghose mit Käppi**, auf Waldbike, Slow-Race auf 5-Meter-Strecke, Moderator zählt enthusiastisch, am Ende 18 Sek). Hook „Wie langsam fährst DU? 🐌", End-Screen „Wie viele Sekunden schaffst DU? Schreib's in die Kommentare 👇". Loubna hat **5 weitere Slow-Race-Clips** im Album entdeckt → werden Mo 11.05. in Ruhe gesichtet + zu weiteren Reels verarbeitet (Multi-Reel-Pattern wie Baumstamm KW16). Texte komplett auf Desktop: `/Users/ki/Desktop/texte_slow_race_reel.txt` (Hook, Untertitel, End-Screen, Caption, Signal-Freigabe in einer Datei).
+- **Korrektur 10.05.:** Geminis Beschreibung von IMG_7069 nannte den Fahrer „olivgrünen Trainingsanzug mit roten Streifen" — falsch. Tatsächlich orange-braune Jogginghose mit Käppi (Loubna-Korrektur). Auch Geminis Jahresangaben (2023/2024) waren falsch — korrekt 2025/2026. Lerneffekt: KI-Beschreibungen von Bildmaterial nicht blind übernehmen, immer mit Loubna verifizieren.
+- **Reel-Idee Backup KW19:** **Slow-Race 2025 vs Baumstamm 2026 Mashup** — Vergleichs-Reel mit Voting-Mechanik („Schreib 1 oder 2"). Konzept ausgearbeitet in `/Users/ki/Desktop/hooks_untertitel_challenge_reel.txt`. **Nur als Backup**, wenn Festival-Quellen wirklich erschöpft sind — Originalmaterial schlägt Recycling-Vergleiche.
+- **Reel-Idee Backlog (08.05.):** „Wo träumst du dich hin?" — Variante mit KI-generierten Fantasiewelten (Berge/Alpen, Meer, Wüste). Hook fragt nach Traumort der Community statt Vergangenheit. Storyboard: `/Users/ki/Desktop/idee_traum_reel_fantasiewelt.txt`. Posting frühestens 2-3 Wochen nach „Fahrradprüfung"-Reel, gut für Sommer-Stimmung.
+- **Festival-Drehliste für Andi** (versendet als HTML/PDF) — Andi mit Freunden auf Bike-Festivals: lustige Clips + Challenges, **keine gefährlichen Stunts** (Wheelie/Bunny Hop raus → Verletzungsrisiko). Stattdessen: Schätz-Challenge, Slow-Race, alberne Fahr-Challenges (einhand, komischer Hut), Bike-Spotting, Reaktion auf Profi-Tricks, Andi vs. Freund Battle, Andi's Festival-Tipp. Datei: `/Users/ki/Desktop/dreh_liste_andi_festivals.html` + PDF.
 - **Strategie-Telefonat geplant (KW19):** Loubna will mit Christoph + Andi telefonieren, weil Festival-Clips + Challenge-Hooks aus dem Material langsam erschöpft sind und alternative Formate nicht annähernd an Challenges rankommen. Ziel: gemeinsam neue Ideen + Drehs planen. Signal-Anschreiben: `/Users/ki/Desktop/signal_telefonat_naechste_steps.txt`.
 - **Performance-Erkenntnisse:**
   - Challenge-Format funktioniert bei der Zielgruppe → bleibt Anker-Format. Die früher dokumentierte „18K Views"-Zahl bei IMG_7396 ist nach Loubna-Korrektur (04.05.) nicht belegt — die belastbare Erkenntnis ist trotzdem: Challenge-Hook + Mitmach-Mechanik > alles andere.
