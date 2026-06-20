@@ -85,6 +85,20 @@
 - **Hintergrund:** Geteilter Auto+Bike-Account hat schwache Auto-Performance, die Bike-Reach mitgezogen hat. Eigener Kanal soll Algorithmus-Drag rausnehmen.
 - **Status:** Vorab-Angebot, wartet auf interne Abstimmung Andi+Christoph; offizielles Angebot folgt nach Zusage
 
+## Paid Advertising / Meta Ads (Stand 06.06.2026)
+- **Anlass:** Promo-Reels (Quercus Sa 23.05. + So 24.05.) hatten unter 200 Views organisch — reiner Verkaufsinhalt funktioniert ohne Paid nicht
+- **Empfehlung Einstieg:** Ziel „Video Views" (günstigstes Format auf Meta), Reels-Placement, 30–40 km Radius um Lünen, 40–65 Jahre, Interesse E-Bike/Fahrrad
+- **Tagesbudget:** €10–15/Tag pro Video
+- **Dauer:** 14 Tage Mindest-Lernphase — in dieser Zeit NICHTS ändern, sonst startet Lernphase neu
+- **Gesamtkosten pro Video:** ca. €140–210
+- **Realistische Reichweite:** bei €10/Tag ca. 15.000–20.000 Impressionen in 2 Wochen (CPM Deutschland Reels ca. €8–9)
+- **Einstiegsstrategie:** erst 1 Video testen, nach 2 Wochen Zahlen ansehen, dann entscheiden
+- **Loubna-Aufwand:** ca. 1 Stunde Setup pro Kampagne — abrechnen als Stunde (€45) auf Rechnung oder 1 Reel weniger in der Woche als Ausgleich
+- **Hinweis Andromeda Update 2026:** Meta entscheidet Placement jetzt selbst (Creative-First), Targeting weniger wichtig als Qualität des Reels
+- **Klare Aussage für Kunden:** Verkaufscontent braucht Paid — organisch ist das kein Format für diese Audience
+- **✅ Kampagne geschaltet 06.06.2026:** Loubna hat Zugriff auf Meta Business Manager von Katharina erhalten. Kampagne „Quercus Promo Mai 2026" erstellt. Ziel: Videoaufrufe. Video: Quercus SUV Promo-Reel (Sa 23.05.). Budget: €10/Tag, 14 Tage (bis ca. 20.06.). Landing Page: https://trompeter24.de/e-bikes/waldbike/e-mtb-quercus-suv-carbon-fully. Läuft auf Facebook + Instagram gleichzeitig (eine Anzeige, Advantage+ Placement). Andi hatte den Anzeigentext selbst verfasst. Signal-Nachricht an Gruppe: Anzeige live, kein Di-Posting (Zeit für Anzeigen-Setup verwendet).
+- **Waldbike-Produktseiten:** Quercus = https://trompeter24.de/e-bikes/waldbike/e-mtb-quercus-carbon-fully / Quercus SUV = https://trompeter24.de/e-bikes/waldbike/e-mtb-quercus-suv-carbon-fully
+
 ## Video-Verarbeitung
 - MediaRecorder mit **voller Originalauflösung** (kein Downscaling)
 - **Hohe Bitrate** (8-10 Mbps) für gute Qualität
@@ -191,6 +205,48 @@
 
 - **KW22 (25.05.-31.05.2026):**
   - Mi 27.05.: Reel **„Meet the Team"** — Christoph (Kommentator) + Andi vorgestellt. Struktur: IMG_7071-Clip (Christoph-Stimme, „Da passiert ja gar nichts mehr") → Untertitel + Foto Christoph aus IMG_7065 (Gesicht) + „Das ist Christoph — unser Kommentator 🎙️" → DJI-Clip Andi + Text „Mitarbeiter des Monats 😂" → Foto IMG_7065 komplett + „Bikes, Leidenschaft — und echte Menschen." End-Screen. Caption + Signal-Freigabe: `/Users/ki/Desktop/caption_meet_the_team.txt`. Post verschoben von Di 26.05. → Tausch mit Katharina.
+  - **28.05.: Andi fragt nach Kosten für bezahlte Werbung** (Quercus-Promo-Reels, Sa 23.05. + So 24.05. hatten unter 200 Views organisch). Empfehlung an Andi: erst 1 Video testen, €10/Tag, 14 Tage = €140. Bei Erfolg zweites Video dazuschalten. Formulierung: „Wir könnten das mit einem Video testen, 2 Wochen, €10 am Tag. Macht €140 gesamt. Organisch hat das Reel unter 200 Views gemacht, bezahlt kommen da realistisch 15.000–20.000 Leute aus der Region ran. Wenn die Zahlen nach 2 Wochen gut aussehen, machen wir das zweite Video auch. Wenn nicht, haben wir's für €140 rausgefunden." Abrechnung Loubna: 1 Stunde Setup (€45 auf Rechnung) oder 1 Reel weniger in der Woche als Ausgleich — Andi soll wählen.
+  - **29.05.: Meta Ads Zugriff** — Loubna hat E-Mail an Katharina geschickt (Zugriff auf Meta Business Manager / Werbeanzeigenmanager anfragen) + Logo als Anhang mitgeschickt (`/Users/Shared/Logo E-Bike transparent.png`).
+  - Sa 30.05.: Reel **Track-Stand-Challenge** — Quelle `IMG_7075.mov` (junger Mann mit Brille, olivgrünes Alpha-Industries-T-Shirt, Waldbike, Track Stand 9 Sek, Moderator zählt begeistert mit, „du bist super"). Schnittplan: Hook-Overlay „Track Stand Challenge 🎯" → Clip mit Live-Zähler 1-9 → Zoom bei Moderator-Reaktion → End-Screen. Zähler-GIF erstellt: `/Users/ki/Desktop/zaehler_1bis6.gif`. Caption + Story: Brami Frühlingsfest-Hinweis ergänzt (Waltroper Straße, 14-19 Uhr). **Story (Fr 29.05. abends):** Ortschild Lünen-Brambauer (Foto von Andi) + Text „Heute sind wir dabei! 🌸 Brami Frühlingsfest, Waltroper Straße, Lünen-Brambauer, 14-19 Uhr. Komm vorbei 👋"
+  - So 01.06.: Reel **Track-Stand-Challenge** — Quelle `IMG_7116.mov` (Frau, rosa-mauvefarbene Jacke, Waldbike E-MTB, Track Stand 6 Sek, lacht am Ende). Schnittplan: Hook-Overlay „6 Sekunden. Schafft sie's? 👀" → Clip mit Live-Zähler 1-6 → Zoom wenn sie absetzt + lacht → End-Screen. ⭐ **Performance: 26.000 Views**
+  - **Neue Track-Stand/Slow-Race-Videos gefunden (29.05.):** IMG_7072 ❌, IMG_7073 ❌ (gleiche Person wie bereits gepostetes Video), IMG_7074 ❌, IMG_7075 ✅ (gepostet Sa 30.05.), IMG_7077 ❌, IMG_7116 ✅ (gepostet So 01.06.) — alle gesichtet und bewertet.
+  - **Best-Of Slow-Race-Reel** ✅ UMGESETZT Sa 13.06. — 6 Clips, auf Windows PC in CapCut geschnitten.
+
+- **KW23 (01.06.-07.06.2026):**
+  - Sa 06.06.: Reel **Slow-Race-Challenge** — Quelle `IMG_7089.mov` (jüngerer Mann, roter Pullover, weiße Sneaker, gold-braunes Waldbike E-MTB, Slow-Race, schafft es bis ~10 Sekunden, verliert kurz vor Schluss die Balance). Hook: „Fast... 🐌". Live-Zähler alle 2-3 Sek, Zoom beim Beinahe-Kippen, End-Screen.
+  - So 07.06.: Reel **Slow-Race-Challenge** — Quelle `IMG_7118.mov` (Mann mit Glatze, neongelb-schwarze Fahrradjacke, hält mühelos die Balance, lächelt stolz in die Kamera am Ende). Hook: „Der lässt sich einfach nicht aus der Ruhe bringen 😏". Live-Zähler, Zoom beim stolzen Lächeln, End-Screen.
+  - **Di 10.06.: kein Posting** — Zeit für Anzeigen-Setup (Meta Ads) verwendet, wie an Gruppe kommuniziert.
+  - **Timer-GIF erstellt:** `/Users/ki/Desktop/timer_0bis10.gif` (transparent, orangener Text, Format 0:00 bis 0:10, 1 Sek pro Frame). In CapCut als Overlay einfügen, Mischen → Aufhellen für Transparenz.
+  - **Caption + Signal-Freigabe:** `/Users/ki/Desktop/caption_challenge_kw23.txt`
+  - **Status Challenge-Material:** Nach KW23 ist das gesamte Slow-Race/Track-Stand-Material aus dem Festival 2025 verbraucht. Nächste Inhalte müssen aus neuem Material oder Best-Of-Format kommen.
+
+- **KW24 (08.06.-14.06.2026):**
+  - Sa 13.06.: Reel **„Best-Of Slow-Race"** ✅ GEPOSTET — Compilation der 6 besten Slow-Race-Momente. Clips: IMG_7060 (Orbea, „Alter Verwalter!"), IMG_7069 (orange Jogginghose, enthusiastischer Moderator), IMG_7071 (bärtiger Mann, 46 Sek, „Da passiert ja gar nichts mehr!"), IMG_7088 (junge Frau, 25 Sek), IMG_7116 (Frau, lacht am Ende), IMG_7118 (Glatze, stolzes Lächeln). Je 3-4 Sek pro Clip, Moderator-Ton drin. Hook: „Unsere besten Fahrer — wer hat gewonnen? 🐌". Auf Windows PC geschnitten (Google Drive Workflow).
+  - So 14.06.: Reel **„Hab ich es verkackt"** ✅ GEPOSTET — Quelle `IMG_7374.mov` (13 Sek, First-Person-View Slalom-Parcours mit Pylonen auf gepflastertem Hof, kleiner Holzbrücke, am Ende sagt jemand „hab ich es verkackt"). Hook: „Wenn du dachtest, du hast es drauf... 😅". Zoom + Text „HAB ICH ES VERKACKT 😂" (orange, fett) bei Sek 12-13. Performance noch unbekannt.
+  - Di 16.06.: Reel **WM Ischgl Pre-Race** — Quelle `GX011439_1757105652872.MP4` (>3 Min, GoPro). Andi + 2 Kollegen in Trompeter-Trikots kurz vor WM-Start, essen Snack, trinken Wasser, reden, Berge im Hintergrund. Konzept: 15-20 Sek Ausschnitt, Ton stumm (störende Mikrofon-Stimme), cineastische Musik, Text 1 „Kurz vor dem Start der E-Bike WM 🏔️", Text 2 „Unser Andi in Ischgl", CTA „Hättest du mitgemacht? 👇". Caption: „Ruhig bleiben, wenn gleich die WM startet. Das schafft nicht jeder 😄 Hättest du mitgemacht? 👇"
+
+- **KW25 (15.06.-21.06.2026):**
+  - **Sa 20.06. / So 21.06.: kein brauchbares neues Video von Andi.** Andi ist ein paar Tage unterwegs, schickt neues Material erst Montag 22.06. Ein kurzes Video von ihm ist angekommen, Qualität zu schlecht zum Posten.
+  - **Video gefunden: IMG_1605.mp4** (56 Sek, liegt im Album-Hauptordner, von Loubna am 20.06. ergänzt) — Christoph präsentiert im Showroom ein Waldbike Ulmus, Andi filmt und fragt nach (Drehmoment 45 Nm, Akku im Unterrohr, LED-Knopf, Pointe „Sieht gar nicht aus wie ein E-Bike"). **Wird definitiv verwendet.** Schnittplan: bei 00:44 schneiden, direkt nach der Pointe. Ausplätschernden Schluss-Dialog („Wie heißt das?" / „Ulmus") raus. Modellname „Waldbike Ulmus" per Text-Overlay statt gesprochen, dann Logo als End-Screen.
+  - **Foto-Kandidaten für die Tage ohne Video** (auf Google Drive hochgeladen für den Windows-Workflow): IMG_8372.jpeg (Kanalbrücke-Selfie), IMG_9400.jpeg (TILIA 2.0, Finalist CyclingWorld 2026), IMG_0776.jpeg (Christoph mit i:SY im Showroom). Finale Auswahl/Zuordnung zu den Tagen erfolgt auf dem Windows PC.
+  - Verworfen für diese Runde: IMG_0833 (bereits früher gepostet), IMG_8190 (Luftballons, gefiel Loubna nicht), IMG_6961 (Förderturm bei Nacht, durch obige Kandidaten ersetzt), Cargo-Bike-Foto 3800531b (unsicher, nicht weiterverfolgt).
+  - Kontext-Dokument für Claude Windows: „Trompeter24 Kontext Claude - 20.06.2026" in Google Drive.
+
+### E-Bike WM 2025 Material (Ischgl) — gesichtet 15.06.2026
+**Ordner:** `/Users/ki/Claude/Trompeterhaus Album Kopie/wetransfer_e-bike-wm-2025_2026-05-20_1944/`
+**Inhalt:**
+- `2025-09-04-231824339.mp4` (24MB) — Auto-Selfie auf dem Weg zur WM, Trompeter-Logo sichtbar, komisch geschnitten mit übertriebenen Übergängen, Stimme mit Filter kaum verständlich — **unbrauchbar**
+- `20250906_112205.mp4` (25MB) — WM-Rennen in Bergren, Gruppe Fahrer, Andi fährt einfach mit dem Bike — okay aber kein Hook
+- `20250906_125207(0).jpg` (3,6MB) — Foto vom WM-Tag
+- `GX011423` (51MB) — GoPro First-Person Alpenstraße (nass), GPS-Display sichtbar
+- `GX011424` (50MB) — GoPro First-Person Fahrt, alpines Setting
+- `GX011425` (177MB) — GoPro Pause am Gebirgsbach, sehr schön aber kein Hook
+- `GX011429` (172MB) — GoPro Fahrt auf Schotterweg, jemand voraus, alpine Wiese
+- `GX011430` (18MB) — GoPro First-Person, Bergdorf-Setting (Ischgl)
+- `GX011433` (647MB) — GoPro Waldtrail, enger Forstweg, dynamisch aber nur Landschaft
+- `GX011434` (42MB) — GoPro Waldtrail, enger Waldweg mit Moos + Bäumen, schön aber kein Hook
+- `GX011439` (1GB) — **Zieleinlauf mit ISCHGL-Bannern + Andi/Team Pre-Race-Moment** ✅ für Di 16.06. verwendet
+**Fazit:** Material ist von 2025/früher (nicht aktuell), alles GoPro-Landschaft ohne Challenge-Hook. Einzig nutzbares: GX011439 wegen Team-Moment mit Trikots + Gesichtern.
 
 ### KW16 (13.04.-19.04.2026) — DEW21 E-Bike Festival Woche
 - **Festival:** DEW21 E-Bike Festival Dortmund, Fr 17.04. – So 19.04.2026
@@ -290,10 +346,27 @@ Wiederverwendbarer Workflow für Event-Content mit mehreren ähnlichen Clips:
 - Diverse kleinere IMG-Files (1710, 1875, 1880, 1881, 1883, 1884, 1887, 1893, 1923, 1955) — noch nicht im Detail gesichtet
 **Aufräum-Notiz:** IMG_1891 / IMG_1893 / IMG_1895 liegen als Original + (1)-Duplikat → kann später bereinigt werden
 
+**Weitere Sichtung 20.06.2026 (kurze, bisher unbeschriebene Clips):**
+- IMG_1710.mov (17 Sek) — zwei E-Bikes vor dem Autohaus/VW-Schild, statisch
+- IMG_1875.mov (15 Sek) — Nahaufnahme Rahmen-Branding-Text, Produktdetail
+- IMG_1878.mov (35 Sek) — jemand zeigt am Marktstand sein T-Shirt mit i:SY/Bike Service/TROMPETER-Aufdruck, witzig
+- IMG_1880.mov (15 Sek) — Nahaufnahme Fahrt, Lenker, generisch
+- IMG_1883.mov (9 Sek) — zwei Personen auf der Straße, einer hält spaßig was Richtung Kamera, Bike-Stände im Hintergrund — Personen noch nicht bestätigt
+- IMG_1884.mov (8 Sek) — Stadtszene ohne Bike-Bezug, nicht brauchbar
+- IMG_1923.mov (2 Sek) — Mann macht Trick auf Markt, sehr kurz
+- IMG_1955.mov (19 Sek) — bärtiger Mann mit Cap am Festivalstand
+- Keiner dieser Clips wurde für KW25 verwendet, da IMG_1605.mp4 (Christoph/Waldbike Ulmus) gefunden wurde
+
 ### Noch verfügbare Top-Videos (nicht verwendet, außerhalb Festival-Archiv)
-- IMG_7373.mov (Pylonen-Parcours auf Hof)
 - IMG_7385.mov (Nahaufnahme Bremshebel/Details)
 - IMG_8043.mov (Erste-Person-Fahrt Waldbike, kurz)
+
+### Videos gesichtet + verworfen (KW24)
+- IMG_7373.mov ❌ — schlechte Qualität, verworfen
+- IMG_7374.mov ✅ — gepostet So 14.06. (Slalom „hab ich es verkackt")
+- IMG_7066.mov ❌ — bereits verwendet
+- IMG_7117.mov ❌ — gleiche Person wie bereits gepostetes Video
+- IMG_7080.mov ❌ — „How slow can you go", nur 16 Sek, nichts Spannendes, verworfen
 
 ### Noch verfügbare Top-Bilder (nicht verwendet)
 - IMG_7058.jpeg — Mann präsentiert Waldbike am Messestand
@@ -301,10 +374,9 @@ Wiederverwendbarer Workflow für Event-Content mit mehreren ähnlichen Clips:
 - IMG_7216.jpeg / IMG_7220.jpeg — Zwei Personen auf Bikes im Autohaus-Showroom
 - IMG_7381.jpeg — Messestand draußen, alle Bikes aufgereiht
 - IMG_6961.jpeg — Lastenrad bei Nacht, beleuchteter Förderturm
-- IMG_8372.jpeg — Selfie Waldbike auf Kanalbrücke
-- IMG_0776.jpeg — Andreas mit i:SY im Showroom
-- IMG_0833.jpeg — Waldbike draußen im Grünen
-- IMG_9400.jpeg — Waldbike TILIA 2.0 auf Messe (Finalist CyclingWorld 2026)
+- IMG_8372.jpeg — Selfie Waldbike auf Kanalbrücke (Kandidat KW25)
+- IMG_0776.jpeg — Christoph mit i:SY im Showroom (Korrektur: nicht Andreas; Kandidat KW25)
+- IMG_9400.jpeg — Waldbike TILIA 2.0 auf Messe, Finalist CyclingWorld 2026 (Kandidat KW25)
 - IMG_8190.jpeg — Christoph + Andreas mit Pokal im Autohaus
 - IMG_1261.jpeg — Waldbike Rucksack (Zubehör, Unboxing)
 - 3800531b / 8f740c4e — Erwachsener im Cargo-Bike auf Markt (lustig)
@@ -319,6 +391,13 @@ Wiederverwendbarer Workflow für Event-Content mit mehreren ähnlichen Clips:
 - **Live-Events:** E-Bike + Konzert/Markt → spontane Erlebnisse
 - **Throwback nach Events:** Festival-Material auch Tage/Wochen später posten, mit zeitlicher Brücke zum Showroom („Was nicht über die Theke ging, steht jetzt im Showroom") — verlängert Festival-Wirkung
 - **Cold Open auf Höhepunkt:** Bei Reel mit Original-Audio-Highlight (z.B. „Verkauft!"-Schrei) → Höhepunkt direkt als ersten Frame zeigen, nicht chronologisch erzählen — Algorithmus-Booster für Retention
+
+## Windows PC Workflow (ab KW24)
+- Loubna schneidet Videos auf **Windows PC** in CapCut (mehr Platz, 1TB Festplatte)
+- Material-Transfer: Mac → **Google Drive** hochladen (als normale Datei, NICHT Google Fotos) → Windows PC runterladen (Einzeldateien, nicht Ordner, sonst ZIP-Komprimierung)
+- Claude auf Windows: Rechtsklick auf Projektordner im File Explorer → **„Open Git Bash here"** → `claude` eintippen
+- Kontext-Dateien für Claude auf Windows liegen in Google Drive (Titel: „Trompeter24 Kontext Claude - ...")
+- **Projekt-Kontext-Datei allgemein:** „Trompeter24 Projekt-Kontext für Claude" in Google Drive (Stand 12.06.2026)
 
 ## Technische Notizen
 - Single-File HTML App (kein Build-Tool nötig)
